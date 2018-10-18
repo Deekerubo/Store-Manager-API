@@ -25,8 +25,9 @@ class NewOrder(Resource):
         new_order = self.orders.add_order(item_name, item_price, item_description, item_quantity, item_category)
         return make_response(jsonify({'Cart_Items': new_order}), 201)
 
-      '''Get all order items in the cart'''
+      
     def get(self):
+        '''Get all order items in the cart'''
         return make_response(jsonify({'Cart_Items': self.orders.all_orders()}), 200)
 
 class SingleOrder(Resource):

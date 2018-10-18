@@ -24,9 +24,8 @@ class Order(object):
                 
                 return(single_order_holder)
 
-
      def all_orders(self):
-            """Return available orders"""
+        """Return available orders"""
 
         return self.orders
 

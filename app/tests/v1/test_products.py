@@ -19,7 +19,7 @@ class Test_Entry_Case(unittest.TestCase):
                                 "category":"category"
                             }
     def test_add_entry(self):
-            '''Test to add a new entry'''
+        '''Test to add a new entry'''
         response = self.client.post(ADD_ENTRY_URL,
                                     data = json.dumps(self.entry_item), 
                                     content_type = 'application/json')
@@ -38,7 +38,7 @@ class Test_Entry_Case(unittest.TestCase):
         response = self.client.get(GET_SINGLE_ENTRY,
                                     data = json.dumps(self.entry_item), 
                                     content_type = 'application/json')
-        self.assertEqual(response.status_code, 200)    
+        self.assertEqual(response.status_code, 200)
 
     def test_get_sale_records(self):
         '''Get a single Entry'''
@@ -51,3 +51,4 @@ class Test_Entry_Case(unittest.TestCase):
         response = self.client.get(GET_ALL_ENTRY,
                                    content_type = 'application/json')
         self.assertEqual(response.status_code, 200)
+    
