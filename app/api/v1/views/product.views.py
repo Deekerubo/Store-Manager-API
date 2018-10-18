@@ -7,6 +7,13 @@ from app.api.v1.models.product_models import Entry
 
 cart = []
 
+class Product (Resource):
+    '''Get all products'''
+    def __init__(self):
+        self.products = Entry()
+   
+    def get(self):
+        return make_response(jsonify({'Cart_Items': self.products.all_entries()}), 200)
        
 class SingleProduct(Resource):
     def __init__(self):
