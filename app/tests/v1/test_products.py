@@ -18,3 +18,9 @@ class Test_Entry_Case(unittest.TestCase):
                                 "price":"price",
                                 "category":"category"
                             }
+    def test_add_entry(self):
+            '''Test to add a new entry'''
+        response = self.client.post(ADD_ENTRY_URL,
+                                    data = json.dumps(self.entry_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
