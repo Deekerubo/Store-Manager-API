@@ -24,3 +24,18 @@ class Test_Entry_Case(unittest.TestCase):
                                     data = json.dumps(self.entry_item), 
                                     content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
+
+    def test_get_single_entry(self):
+        '''Test to get a single entry'''
+
+        '''Add a product'''
+        response = self.client.post(ADD_ENTRY_URL,
+                                    data = json.dumps(self.entry_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
+
+        '''return a single entry of the product created'''
+        response = self.client.get(GET_SINGLE_ENTRY,
+                                    data = json.dumps(self.entry_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)    
