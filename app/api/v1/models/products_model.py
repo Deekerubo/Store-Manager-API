@@ -21,3 +21,8 @@ class Entry(object):
         self.entries.append(single_entry_holder)
             
         return single_entry_holder
+
+    def all_entries(self):
+        """Return available entries"""
+        return self.entries
+        
