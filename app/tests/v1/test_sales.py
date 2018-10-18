@@ -21,4 +21,9 @@ class Test_Order_Case(unittest.TestCase):
                                 "price":"price",
                                 "category":"category"
                             }
-    
+    def test_add_order(self):
+        '''Test for sales '''
+        response = self.client.post(ADD_ORDER_URL,
+                                    data = json.dumps(self.orders_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
