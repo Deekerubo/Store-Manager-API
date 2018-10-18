@@ -28,3 +28,14 @@ class NewOrder(Resource):
       '''Get all order items in the cart'''
     def get(self):
         return make_response(jsonify({'Cart_Items': self.orders.all_orders()}), 200)
+
+class SingleOrder(Resource):
+    def __init__(self):
+        self.orders = Order()
+
+    def get(self, salesID):
+       
+        item = self.orders.single_order(salesID)
+        if item:
+            return make_response(jsonify({'Item': item}), 200)
+        return make_response(jsonify("item not found"), 404)
