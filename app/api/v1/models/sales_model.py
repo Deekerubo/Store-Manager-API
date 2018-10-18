@@ -23,3 +23,9 @@ class Order(object):
                 self.orders.append(single_order_holder)
                 
                 return(single_order_holder)
+
+                
+     def all_orders(self):
+            """Return available orders"""
+
+        return self.orders
