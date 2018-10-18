@@ -39,3 +39,15 @@ class Test_Entry_Case(unittest.TestCase):
                                     data = json.dumps(self.entry_item), 
                                     content_type = 'application/json')
         self.assertEqual(response.status_code, 200)    
+
+    def test_get_sale_records(self):
+        '''Get a single Entry'''
+        response = self.client.post(ADD_ENTRY_URL,
+                                    data = json.dumps(self.entry_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
+
+        '''Test  gets all the sale entries'''
+        response = self.client.get(GET_ALL_ENTRY,
+                                   content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)
