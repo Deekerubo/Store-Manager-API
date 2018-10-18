@@ -26,3 +26,9 @@ class Entry(object):
         """Return available entries"""
         return self.entries
         
+    def single_entry(self, id):
+        '''Return a single product '''
+        for product in self.entries:
+            if product['item_id'] == id:
+                return product
+        return False    
