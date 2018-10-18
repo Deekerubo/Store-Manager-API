@@ -27,3 +27,18 @@ class Test_Order_Case(unittest.TestCase):
                                     data = json.dumps(self.orders_item), 
                                     content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
+
+    def test_get_single_order(self):
+        '''Test to get a single order'''
+
+        '''Add a product'''
+        response = self.client.post(ADD_ORDER_URL,
+                                    data = json.dumps(self.orders_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 201)
+
+        '''return a single order from the order records'''
+        response = self.client.get(GET_SINGLE_ORDER,
+                                    data = json.dumps(self.orders_item), 
+                                    content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)
