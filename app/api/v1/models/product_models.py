@@ -11,7 +11,7 @@ class Entry(object):
     def add_entry(self, name, quantity, description, price, category):
         """Adds new entries"""
 
-        single_entry_holder = {"item_id" : len(self.entries)+1,
+        single_entry_holder = { "item_id" : len(self.entries)+1,
                                     "item_name": name,
                                     "item_description": description,
                                     "item_quantity":quantity,
