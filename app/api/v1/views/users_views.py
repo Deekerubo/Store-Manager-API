@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token
+from app.api.v1.models.user_models import User
+
 import re
 
 
@@ -42,7 +44,7 @@ class SignupResource(Resource):
             return {'message': 'User already exists'}, 203
         
         user = User(username=args.get('username'), email=args.get('email'), password=password)
-        user = user.save()
+        user = user.append()
 
         return {'message': 'Successfully registered', 'user': user}, 201
 
@@ -50,21 +52,21 @@ class SignupResource(Resource):
 class LoginResource(Resource):
     '''Resource for user login'''
     parser = reqparse.RequestParser()
-    parser.add_argument('username', required=True,help='Username cannot be blank', type=str)
+    parser.add_argument('email', required=True,help='Email cannot be blank', type=str)
     parser.add_argument('password', required=True, help='Password cannot be blank')
 
     def post(self):
         '''Method for logging in a signed up user'''
         args = LoginResource.parser.parse_args()
-        username = args["username"]
+        email = args["email"]
         password = args["password"]
         if is_blank(username) or is_blank(password) == '':
             return {'message': 'All fields are required'}, 400
 
-        user = User.get_user_by_username(username)
-        if not user:
-            return {'message': 'User unavailable'}, 404
-        if user.validate_password(password):
-            token = create_access_token(identity = username)    
-            return {"message": "You are successfully logged in", 'user': user.view(), 'token':token}, 200
+        email = User.get_user_by_email(email)
+        if not email:
+            return {'message': 'Email unavailable'}, 404
+        if email.validate_password(password):
+            token = create_access_token(identity = email)    
+            return {"message": "You are successfully logged in", 'email': email.view(), 'token':token}, 200
         return {"message": "Username or password is wrong."}, 401
