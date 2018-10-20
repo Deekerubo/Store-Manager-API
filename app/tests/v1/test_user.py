@@ -24,12 +24,12 @@ class Test_User_Case(unittest.TestCase):
         data = json.loads(res.data.decode())
         self.assertTrue(data['access_token'])
         self.assertEqual(res.status_code, 201)
-#         self.assertEqual(resp_data['message'], 'User was created succesfully')
 
-#     def test_login_success(self):
+    def test_login_success(self):
 
-#         res_login = self.client.post(USERLOGIN_URL, data=json.dumps(self.login_user),
-#                                             content_type='application/json')
+        res_login = self.client.post(USERLOGIN_URL, 
+                                     data=json.dumps(self.login_user),
+                                     content_type='application/json')
 
 #         resp_data = json.loads(res_login.data.decode())
 #         self.assertTrue(resp_data['access_token'])
