@@ -6,7 +6,7 @@ from app import create_app
 
 
 USERSIGNUP_URL = '/api/v1/signup'
-# USERLOGIN_URL = '/api/v1/login'
+USERLOGIN_URL = '/api/v1/login'
 
 
 class Test_User_Case(unittest.TestCase):
@@ -14,8 +14,8 @@ class Test_User_Case(unittest.TestCase):
         '''Initialize app and define test variables'''
         self.app = create_app('testing')
         self.client = self.app.test_client()
-        self.register_user = { "email": "test@gmail.com", "password":"12345678", "username":"test" }
-#         self.login_user = { "email": "test@gmail.com", "password":"12345678" }
+        self.register_user = { "email": "test@gmail.com", "password":"1kerubo"}
+        self.login_user = { "email": "test@gmail.com", "password":"1kerubo" }
 
     def test_sign_up_success(self):
         res = self.client.post(USERSIGNUP_URL, 
@@ -25,14 +25,10 @@ class Test_User_Case(unittest.TestCase):
         self.assertTrue(data['access_token'])
         self.assertEqual(res.status_code, 201)
 
-    def test_login_success(self):
-
-        res_login = self.client.post(USERLOGIN_URL, 
-                                     data=json.dumps(self.login_user),
-                                     content_type='application/json')
-
-#         resp_data = json.loads(res_login.data.decode())
-#         self.assertTrue(resp_data['access_token'])
-#         self.assertEqual(res_login.status_code, 200
-#         )
-#         self.assertEqual(resp_data['message'], 'User was logged in succesfully')
+    def test_user_login(self):
+        response = self.client.post(USERLOGIN_URL,
+                                    data=json.dumps(self.login_user),
+                                    content_type='application/json')
+        data = json.loads(response.data.decode())
+        self.assertTrue(data["access_token"])
+        self.assertEqual(response.status_code, 200)

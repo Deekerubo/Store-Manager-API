@@ -1,6 +1,6 @@
 
 from flask_restful import Resource, reqparse
-from flask import Flask,jsonify,request, make_response
+from flask import Flask,request, make_response
 from passlib.hash import pbkdf2_sha256 as sha256
 
 
@@ -8,16 +8,14 @@ class User():
 
     users_list = []
 
-    def __init__(self, username, email, password):
+    def __init__(self, email, password):
         self.user_id = len(self.users_list)+1
-        self.username = username
         self.email = email
         self.password = password
 
     def save_user(self):
         """ save a new user """
         user = dict(user_id=self.user_id,
-                    username=self.username,
                     email=self.email,
                     password=self.password)
 
