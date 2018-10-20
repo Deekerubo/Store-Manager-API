@@ -15,7 +15,7 @@ class Product (Resource):
 
     
         '''Create a new product'''
-    @jwt_required
+    # @jwt_required
     def post(self):
         data = request.get_json()
         item_name = data['name']
@@ -28,7 +28,7 @@ class Product (Resource):
         return make_response(jsonify({'Cart_Items': new_entry}), 201)    
    
         '''Get all products'''
-    @jwt_required
+    # @jwt_required
     def get(self):
         return make_response(jsonify({'Cart_Items': self.products.all_entries()}), 200)
        
@@ -36,7 +36,7 @@ class SingleProduct(Resource):
     def __init__(self):
         self.products = Entry()
 
-    @jwt_required
+    # @jwt_required
     def get(self, productID):
        
         item = self.products.single_entry(productID)
