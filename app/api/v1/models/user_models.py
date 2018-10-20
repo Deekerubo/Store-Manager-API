@@ -12,7 +12,7 @@ class User():
     def create_user(username,email,password):
         role = 'user'
         id = len(users) + 1
-        new_user = { 'id':id ,'username':username,'email':email,'password':password,'role':role}
+        new_user = { 'id':id ,'username':username,'email':email,'password':password,}
         users.append(new_user)
         return new_user
 
