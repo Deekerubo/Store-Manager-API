@@ -1,63 +1,42 @@
 
-# from flask_restful import Resource, reqparse
-# from flask import Flask,jsonify,request, make_response
-# from passlib.hash import pbkdf2_sha256 as sha256
+from flask_restful import Resource, reqparse
+from flask import Flask,jsonify,request, make_response
+from passlib.hash import pbkdf2_sha256 as sha256
 
 
-# users = []
+class User():
 
-# class User():
-    
-#     @staticmethod
-#     def create_user(username,email,password):
-#         role = 'user'
-#         id = len(users) + 1
-#         new_user = { 'id':id ,'username':username,'email':email,'password':password,}
-#         users.append(new_user)
-#         return new_user
+    users_list = []
 
-# # find if email exists
-#     @staticmethod
-#     def find_by_email(email):
-#         for x in users :
-#             listOfKeys = [key  for (key, value) in x.items() if value == email]
-#             if listOfKeys:
-#                 return 1
+    def __init__(self, username, email, password):
+        self.user_id = len(self.users_list)+1
+        self.username = username
+        self.email = email
+        self.password = password
 
-#             return 0
+    def save_user(self):
+        """ save a new user """
+        user = dict(user_id=self.user_id,
+                    username=self.username,
+                    email=self.email,
+                    password=self.password)
 
-# # find if username exists
-#     @staticmethod
-#     def find_by_username(username):
-#         for x in users :
-#             listOfKeys = [key  for (key, value) in x.items() if value == username]
-#             if listOfKeys:
-#                 return 1
+        User.users_list.append(user)
+        return user
 
-#             return 0
+    @classmethod
+    def fetch_single_user(cls, email):
+       """ Method to get a user"""
+       for user in User.users_list:
+           if user['email'] == email:
+               return user
+       return f"User of ID {email} doesn't exist"
 
-# # find if username exists
-#     @staticmethod
-#     def get_user_hash(email):
-#         for x in users :
-#             listOfKeys = [key  for (key, value) in x.items() if value == email]
-#             if listOfKeys:
-#                 result = filter(lambda person: person['email'] == email, users)
-#                 return result
+    @staticmethod
+    def generate_hash(password):
+       return sha256.hash(password)
 
-
-#             return 0
-
-#     # generate hash
-#     @staticmethod
-#     def generate_hash(raw_password):
-#         return sha256.hash(raw_password)
-
-#     # compare user password with hashed password 
-#     @staticmethod
-#     def verify_hash(password,email):
-#             for x in users :
-#                 listOfKeys = [key  for (key, value) in x.items() if value == email]
-#                 if listOfKeys:
-#                     result = list(filter(lambda person: person['email'] == email, users))
-#                     return sha256.verify(password,  result[0]['password'] )
+    @staticmethod
+    def verify_hash(password, pass_hash):
+       return sha256.verify(password, pass_hash)
+ 
