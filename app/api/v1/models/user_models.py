@@ -37,4 +37,17 @@ class User():
     @staticmethod
     def verify_hash(password, pass_hash):
        return sha256.verify(password, pass_hash)
+
+    @staticmethod
+    def find_by_email(email):
+        return next((user for user in user if user['email'] == email), False)
+
+    # @staticmethod
+    # def verify_hash(password, email):
+        for users in User.users_list:
+            listOfKeys = [key for (key, value) in User.users_list.items() if value == email]
+            if listOfKeys:
+                result = list(filter(lambda person: person['email'] == email, user))
+                return sha256.verify(password, result[0]['password'])
+
  

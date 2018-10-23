@@ -18,6 +18,7 @@ class Product (Resource):
     # @jwt_required
     def post(self):
         data = request.get_json()
+
         item_name = data['name']
         item_price = data['price']
         item_description = data['description']
