@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/Deekerubo/Store-Manager-API.svg?branch=ft-login-auth-161361873)](https://travis-ci.org/Deekerubo/Store-Manager-API)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b856b0a4882e0f62f42b/maintainability)](https://codeclimate.com/github/Deekerubo/Store-Manager-API/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Coverage Status](https://coveralls.io/repos/github/Deekerubo/Store-Manager-API/badge.svg?branch=ft-login-auth-161361873)](https://coveralls.io/github/Deekerubo/Store-Manager-API?branch=ft-login-auth-161361873)
+
 
 # Store-Manager-API
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
