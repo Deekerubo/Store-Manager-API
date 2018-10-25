@@ -15,8 +15,8 @@ class Test_Entry_Case(unittest.TestCase):
         self.client = self.app.test_client()
         self.entry_item = { "name":"name",
                              "description":"description",
-                             "quantity":"quantity",
-                             "price":"price",
+                             "quantity":4675,
+                             "price": 23,
                              "category":"category"
                           }
 
@@ -48,7 +48,7 @@ class Test_Entry_Case(unittest.TestCase):
                                     data = json.dumps(self.entry_item),
                                     # headers=dict(Authorization="Bearer "+self.login()), 
                                     content_type = 'application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
         '''return a single entry of the product created'''
         response = self.client.get(GET_SINGLE_ENTRY,

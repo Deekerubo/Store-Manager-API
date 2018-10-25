@@ -24,7 +24,11 @@ class NewOrder(Resource):
         item_quantity = data['quantity']
         item_category = data['category']
 
+        if not isinstance(item_price, int):
+            return {'message':'price must be integer'}
 
+        elif not isinstance(item_quantity, int):
+            return {'message':'quantity must be integer'}
         find_name = Order.find_sale_name(item_name)
         if find_name != False:
             return{'message': 'item exists'}

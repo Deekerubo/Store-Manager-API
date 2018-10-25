@@ -20,15 +20,22 @@ class Product (Resource):
         data = request.get_json()
 
         item_name = data['name']
-        item_price = data['price']
         item_description = data['description']
         item_quantity = data['quantity']
+        item_price = data['price']
         item_category = data['category']
+
+        if not isinstance(item_price, int):
+            return 'message':'price must be integer',
+                    'item': item_price }
+
+        elif not isinstance(item_quantity, int):
+            return {'message':'quantity must be integer'}
 
         find_name = Entry.find_product_name(item_name)
         if find_name != False:
             return{'message': 'item exists'} 
-        new_entry = self.products.add_entry(item_name, item_price, item_description, item_quantity, item_category)
+        new_entry = self.products.add_entry(item_name, item_description, item_quantity, item_price, item_category)
         return make_response(jsonify({'Cart_Items': new_entry}), 201)    
    
         '''Get all products'''

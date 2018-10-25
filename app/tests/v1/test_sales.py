@@ -17,8 +17,8 @@ class Test_Order_Case(unittest.TestCase):
         self.client = self.app.test_client()
         self. orders_item = { "name": "name",
                                 "description":"description",
-                                "quantity":"quantity",
-                                "price":"price",
+                                "quantity":35241,
+                                "price":76,
                                 "category":"category"
                             }
     # def login(self):
@@ -45,7 +45,7 @@ class Test_Order_Case(unittest.TestCase):
         response = self.client.post(ADD_ORDER_URL,
                                     data = json.dumps(self.orders_item),
                                     content_type = 'application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
         '''return a single order from the order records'''
         response = self.client.get(GET_SINGLE_ORDER,
@@ -62,7 +62,7 @@ class Test_Order_Case(unittest.TestCase):
                                     data = json.dumps(self.orders_item),
                                     # headers=dict(Authorization="Bearer " + self.login()), 
                                     content_type = 'application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
         '''Test  gets all the sale records'''
         response = self.client.get(GET_ALL_ORDERS,

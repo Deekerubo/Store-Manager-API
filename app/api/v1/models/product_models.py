@@ -8,14 +8,14 @@ class Entry(object):
         # all entries placeholder
         self.entries = Entries_list
 
-    def add_entry(self, name, quantity, description, price, category):
+    def add_entry(self, name, description, quantity, price, category):
         """Adds new entries"""
 
         single_entry_holder = { "item_id" : len(self.entries)+1,
                                     "item_name": name,
                                     "item_description": description,
                                     "item_quantity":quantity,
-                                    "item_price": price,
+                                    "item_price": price,  
                                     "item_category": category
                                }
         self.entries.append(single_entry_holder)
