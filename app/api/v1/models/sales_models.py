@@ -24,6 +24,10 @@ class Order(object):
                 
                 return(single_order_holder)
 
+     def find_sale_name(item_name):
+    
+        return next((entry for entry in Order_List if entry['item_name'] ==item_name), False)
+
      def all_orders(self):
         """Return available orders"""
 
