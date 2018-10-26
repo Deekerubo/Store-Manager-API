@@ -19,9 +19,37 @@ Store Manager is a web application that helps store owners manage sales and prod
 -Store attendants should be able to add products to specific catego
 ```
 # Installation
+Clone this Repository.
 ```
     $ git clone https://github.com/Deekerubo/Store-Manager-API.git
+```
+Create the virtual Environment
+```
     $ virtualenv venv
+```
+Activate the virtual environment
+```
     $ . venv/bin/activate
+```
+Install all the requirements
+```
     $ pip install -r requirements.txt
 ```
+
+
+#Endpoints
+
+EndPoint | Functionality | Notes
+---------|---------------|-------
+GET /products | Fetch all products | 
+
+GET /products/<productId> | Fetch a single product record|
+
+GET /sales|  Fetch all sale records| 
+
+GET /sales/<saleId> | Fetch a single sale record|
+
+POST /products | Create a product|
+
+POST /sales | Create a sale order|
+
