@@ -4,9 +4,8 @@ from flask_restful import Api
 from .views.product_views import Product, SingleProduct
 from .views.sales_views import NewOrder, SingleOrder
 from .views.users_views import UserRegistration, UserLogin
-# from .views.home import Home
 
-version1 = Blueprint('api', __name__, url_prefix='/api/v1')
+version1 = Blueprint('api', __name__, url_prefix='/api/v1', template_folder = 'templates')
 api = Api(version1)
 
 
@@ -17,4 +16,3 @@ api.add_resource(SingleOrder, '/sales/<int:salesID>')
 api.add_resource(UserRegistration, '/signup')
 api.add_resource(UserLogin, '/login')
 
-# api.add_resource(Home, '/')
