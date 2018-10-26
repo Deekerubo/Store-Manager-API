@@ -11,4 +11,4 @@ home = Blueprint ('home',__name__)
 
 api = Api(home)
 
-# api.add_resource(Home, '/home')
+api.add_resource(Home, '/')
