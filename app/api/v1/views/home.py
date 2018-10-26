@@ -5,7 +5,11 @@ from flask import Blueprint
 
 class Home(Resource):
     def get(self):
-        return redirect("https://documenter.getpostman.com/view/4775740/RWgxvvBe", code=302)
+        return make_response(jsonify({'message': 'Welcome to Store Manager',
+                                      'documentation': 'https://documenter.getpostman.com/view/4775740/RWgxvvBe',
+                                      'gitHub':'https://github.com/Deekerubo'
+                }))
+        # return redirect("https://documenter.getpostman.com/view/4775740/RWgxvvBe", code=302)
 
 home = Blueprint ('home',__name__)
 
