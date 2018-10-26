@@ -26,7 +26,7 @@ class Product (Resource):
         item_category = data['category']
 
         if not isinstance(item_price, int):
-            return 'message':'price must be integer',
+            return {'message':'price must be integer',
                     'item': item_price }
 
         elif not isinstance(item_quantity, int):
@@ -35,8 +35,9 @@ class Product (Resource):
         find_name = Entry.find_product_name(item_name)
         if find_name != False:
             return{'message': 'item exists'} 
+
         new_entry = self.products.add_entry(item_name, item_description, item_quantity, item_price, item_category)
-        return make_response(jsonify({'Cart_Items': new_entry}), 201)    
+        return make_response(jsonify({'Cart_Items': new_entry, 'message':'product created succesfully!'}), 201)    
    
         '''Get all products'''
     # @jwt_required

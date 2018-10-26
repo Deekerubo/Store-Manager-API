@@ -23,9 +23,8 @@ class Entry(object):
         return single_entry_holder
 
     def find_product_name(item_name):
-
+        '''Get a product by item_name'''
         return next((entry for entry in Entries_list if entry['item_name'] ==item_name), False)
-        # return next((entry for entry in Entries_list if ['name'] == name), False)
 
     def all_entries(self):
         """Return available entries"""
