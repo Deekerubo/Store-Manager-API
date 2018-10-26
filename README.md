@@ -41,14 +41,14 @@ Install all the requirements
 EndPoint | Functionality | Notes
 ---------|---------------|-------
 GET /products | Fetch all products | 
------------- | ----------|----------
+------------|----------|----------
 GET /products/<productId> | Fetch a single product record|
----------------| ----------- | ------------
+---------------|-----------|------------
 GET /sales|  Fetch all sale records| 
----------------| ----------- | ------------
+---------------|-----------|------------
 GET /sales/<saleId> | Fetch a single sale record|
----------------| ----------- | ------------
+---------------|-----------|------------
 POST /products | Create a product|
----------------| ----------- | ------------
+---------------|-----------|------------
 POST /sales | Create a sale order|
 
