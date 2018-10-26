@@ -19,31 +19,12 @@ class Test_Entry_Case(unittest.TestCase):
                              "price": 23,
                              "category":"category"
                           }
-        # self.register_user = {"email" : "dianakerubo2@gmail.com", 
-        #                     "password" : "1234",
-        #                      }
-
-        # self.user_login = { "email" : "dianakerubo2@gmail.com", 
-        #                     "password" : "1234",
-        #                   }
-
-    # def login(self):
-    #     res = self.client.post(USERSIGNUP_URL, 
-    #                            data=json.dumps(self.register_user),
-    #                            content_type = 'application/json')
-    #     data = json.loads(res.data.decode())
-    #     self.assertEqual(res.status_code, 201)
-    #     res = self.client.post(USERLOGIN,
-    #                                 data=json.dumps(self.user_login),
-    #                                 content_type='application/json')
-    #     return json.loads(res.get_data().decode("UTF-8"))['access_token']
-
+        
 
     def test_add_entry(self):
         '''Test to add a new product'''
         response = self.client.post(ADD_ENTRY_URL,
                                     data = json.dumps(self.entry_item),
-                                    # headers=dict(Authorization="Bearer "+self.login()), 
                                     content_type = 'application/json'                                   
                                     )
         data = json.loads(response.get_data().decode("UTF-8"))

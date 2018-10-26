@@ -6,7 +6,6 @@ from .views.sales_views import NewOrder, SingleOrder
 from .views.users_views import UserRegistration, UserLogin
 from .views.home import Home
 
-# api.add_resource(Home, '/')
 version1 = Blueprint('api', __name__, url_prefix='/api/v1')
 api = Api(version1)
 
