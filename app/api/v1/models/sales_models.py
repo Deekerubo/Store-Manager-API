@@ -8,10 +8,10 @@ class Order(object):
         # all orders placeholder
         self.orders =Order_List
 
-     def add_order(self, name, description, price, quantity, category):
+     def add_order(self, name, description, quantity, price, category):
         """Adds new orders"""
 
-        if name and description  and price and quantity and category:
+        if name and description  and quantity  and price and category:
            
                 single_order_holder = {"item_id" : len(self.orders)+1,
                                        "item_name": name,
@@ -24,9 +24,12 @@ class Order(object):
                 
                 return(single_order_holder)
 
+     def find_sale_name(item_name):
+    
+        return next((entry for entry in Order_List if entry['item_name'] ==item_name), False)
 
      def all_orders(self):
-            """Return available orders"""
+        """Return available orders"""
 
         return self.orders
 
