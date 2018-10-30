@@ -22,6 +22,8 @@ class Product (Resource):
         price = data['price']
         category = data['category']
 
+        if not description:
+            return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
         if not isinstance(price, int):
             return {'message':'price must be integer',
                     'item': price }

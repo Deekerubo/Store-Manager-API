@@ -25,6 +25,7 @@ def destroy_tables():
     users = """DROP TABLE IF EXISTS users CASCADE"""
     products = """DROP TABLE IF EXISTS products CASCADE"""
     sales = """DROP TABLE IF EXISTS sales CASCADE"""
+    category = """DROP TABLE IF EXISTS category CASCADE"""
     pass
 def tables():
         """Used for creating the tables"""
@@ -41,16 +42,19 @@ def tables():
                 price float(45) NOT NULL,
                 category varchar(50) NOT NULL)"""
 
-        category = """CREATE TABLE IF NOT EXISTS categories(
-                id serial PRIMARY KEY,
-                category_name varchar(50) UNIQUE NOT NULL)"""
-
+        
         sales = """CREATE TABLE IF NOT EXISTS sales (
                 id serial PRIMARY KEY,
                 sales_items varchar(200) NOT NULL,
                 sales_description varchar (200) NOT NULL,
                 quantity int NOT NULL,
-                price int NOT NULL)"""
+                price int NOT NULL,
+                category varchar(20) NOT NULL)"""
+
+        category = """CREATE TABLE IF NOT EXISTS category(
+                id serial PRIMARY KEY,
+                name varchar(50) UNIQUE NOT NULL)"""
+
 
         tables = [users, products, category, sales]
 
