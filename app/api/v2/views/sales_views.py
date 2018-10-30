@@ -15,7 +15,7 @@ class NewOrder(Resource):
         self.orders = Order()
 
     '''Create a  sale  order'''
-    # @jwt_required
+    @jwt_required
     def post(self):
         data = request.get_json()
         item_name = data['name']
@@ -49,11 +49,8 @@ class NewOrder(Resource):
         #     return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
 
 
-
-
-
         
-    # @jwt_required 
+    @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
         return make_response(jsonify({'Cart_Items': self.orders.all_orders()}), 200)
@@ -62,7 +59,7 @@ class SingleOrder(Resource):
     def __init__(self):
         self.orders = Order()
 
-    # @jwt_required
+    @jwt_required
     def get(self, salesID):
        
         item = self.orders.single_order(salesID)
