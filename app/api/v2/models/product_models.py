@@ -1,9 +1,10 @@
-"""app/v2/models.py contains models for the app"""
+"""app/api/v2/models.py contains models for the app"""
 import psycopg2.extras
 from psycopg2 import sql
 from app.api.database import init_db
 
-
+# conn = init_db()
+# cur = conn.cursor()
 
 class Entry(object):
     """Add new entry"""
@@ -20,7 +21,7 @@ class Entry(object):
                 INSERT INTO products(product_name, product_description, quantity, price, category)
                 VALUES(%s,%s,%s,%s,%s)
                 """,
-                (self.name, self.description, self.quantity, self.price, self.category, self.user_id)) 
+                (name, description, quantity,price, category)) 
             conn.commit()
             return 'product created succesfully'
         
@@ -30,19 +31,40 @@ class Entry(object):
             return ("product not created")
 
             
-        return single_entry_holder
 
-    # def find_product_name(item_name):
-    #     '''Get a product by item_name'''
-    #     return next((entry for entry in Entries_list if entry['item_name'] ==item_name), False)
-
-    # def all_entries(self):
-    #     """Return available entries"""
-    #     return self.entries
+    # def find_product_name(name):
+    #     '''Get a product by item name'''
+    # try:
         
-    # def single_entry(self, id):
-    #     '''Return a single product '''
-    #     for product in self.entries:
-    #         if product['item_id'] == id:
-    #             return product                                                                                     
-    #     return False    
+    #     cur.execute("""SELECT * FROM products WHERE product_name='{}' """.format(name))
+    #     rows = cur.fetchone()
+               
+    #     return rows
+
+    def all_products(self):
+        """Return available entries"""
+        try:
+            conn = init_db()
+            cur = conn.cursor()
+            cur.execute("""SELECT * FROM products  """)
+            rows = cur.fetchall()
+
+            return rows
+        
+        except Exception as e:
+            print(e)
+            return {'message': 'No products fetched'}, 500
+        
+    def single_product(self, id):
+        '''Return a single product '''
+        try:
+            conn = init_db()
+            cur = conn.cursor()
+            cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
+            rows = cur.fetchall()
+        
+            return rows
+
+        except Exception as e:
+            print(e)
+            return {'message': 'No product fetched'}, 500

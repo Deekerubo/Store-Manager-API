@@ -12,7 +12,9 @@ def create_app(config_name ="development"):
     app.config.from_pyfile('config.py')
     app.config["JWT_SECRET_KEY"] = "SECRET"
     jwt = JWTManager(app)
-    create_tables()
+
+    with app.app_context():
+        create_tables()
 
     '''Register my blueprints'''
     app.register_blueprint(cart_BP)
