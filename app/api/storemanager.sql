@@ -16,9 +16,9 @@ create table if not exists products (
 );
 
 -- create table to handle categories
-create table if not exists categories (
+create table if not exists category (
                 id         serial    not null primary key,
-                category_name      varchar   not null,
+                name      varchar   not null,
 );
 -- create table to handle Sales
 create table if not exists sales (
