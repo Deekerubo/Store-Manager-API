@@ -9,15 +9,17 @@ from app.api.database import init_db
 class Entry(object):
     """Add new entry"""
     def __init__(self):
-        self.db = init_db()
+        conn = init_db()
+        cur = conn.cursor()
+        # self.db = init_db()
         
     def add_entry(self, name, description, quantity, price, category):
 
         """Adds new entries"""                                                   
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""
                 INSERT INTO products(product_name, product_description, quantity, price, category)
                 VALUES(%s,%s,%s,%s,%s)
                 """,
@@ -32,22 +34,22 @@ class Entry(object):
 
             
 
-    # def find_product_name(name):
-    #     '''Get a product by item name'''
-    # try:
+    def find_product_name(name):
+        '''Get a product by item name'''
+        try:
         
-    #     cur.execute("""SELECT * FROM products WHERE product_name='{}' """.format(name))
-    #     rows = cur.fetchone()
-               
-    #     return rows
-
+            self.cur.execute("""SELECT * FROM products WHERE product_name='{}' """.format(name))
+            rows = self.cur.fetchone()       
+            return rows
+        except:
+            pass
     def all_products(self):
         """Return available entries"""
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""SELECT * FROM products  """)
-            rows = cur.fetchall()
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""SELECT * FROM products  """)
+            rows = self.cur.fetchall()
 
             return rows
         
@@ -58,10 +60,10 @@ class Entry(object):
     def single_product(self, id):
         '''Return a single product '''
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
-            rows = cur.fetchall()
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
+            rows = self.cur.fetchall()
         
             return rows
 

@@ -31,8 +31,10 @@ def tables():
         """Used for creating the tables"""
         users = """CREATE TABLE IF NOT EXISTS users(
                 id serial PRIMARY KEY,
+                username varchar (20) NOT NULL,
                 email varchar(90) UNIQUE NOT NULL,
-                passsword varchar(120) NOT NULL)"""
+                password varchar(120) NOT NULL,
+                role float(1) NOT NULL)"""
 
         products = """CREATE TABLE IF NOT EXISTS products(
                 id serial PRIMARY KEY,
@@ -59,3 +61,7 @@ def tables():
         tables = [users, products, category, sales]
 
         return tables
+
+# class DB():
+#         def __init__(self):
+#                 self.con = init_db()

@@ -7,14 +7,16 @@ class Order(object):
 
     """Add new entry"""
     def __init__(self):
-        self.db = init_db
+        # self.db = init_db
+        self.conn = init_db()
+        cur = self.conn.cursor()
 
     def add_order(self, name, description, quantity, price, category):
         """Adds new orders"""
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""
                 INSERT INTO sales(sales_items, sales_description, quantity, price, category)
                 VALUES(%s,%s,%s,%s)
                 """,
@@ -35,9 +37,9 @@ class Order(object):
     def all_orders(self):
         """Return available orders"""
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""SELECT * FROM sales  """)
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""SELECT * FROM sales  """)
             rows = cur.fetchall()
 
             return rows
@@ -50,9 +52,9 @@ class Order(object):
     def single_order(self, id):
         '''Return a single Order '''
         try:
-            conn = init_db()
-            cur = conn.cursor()
-            cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
+            # conn = init_db()
+            # cur = conn.cursor()
+            self.cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
             rows = cur.fetchall()
         
             return rows
