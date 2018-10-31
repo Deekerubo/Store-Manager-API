@@ -30,22 +30,52 @@ class UserRegistration(Resource):
         if not (re.match(email_format, email)):
             return make_response(jsonify({'message' : 'Invalid email'}), 400)
 
-        '''check upon validation email exists'''  
-        this_user = User.find_by_email(email)
+        '''check upon validation usename exists'''  
+        this_user = User.find_by_username(username)
         if this_user != False:
-            return {'message': 'email already exist'},400
+            return {'message': 'username already exist'},400
 
-        '''Checks if password is hashed'''
-        password = User.generate_hash(raw_password)
+        '''check if authorized for signup'''
+        user = User.is_admin(user_id)
+        if user != True:
+            return make_response(jsonify({'message' : 'You are not authorized to perform this function'}), 401)
 
-        data = parser.parse_args()
-        new_user = User(email=data['email'],
-                        password=User.generate_hash(data['password'])
-                        )
-        new_user.save_user()
-        access_token = create_access_token(identity=data["email"])
-        return{"message" : 'User {} was created'.format(data["email"]),
-                "access_token": access_token},201     
+
+        '''send validated user input to user model'''
+        new_user = User(
+            username=username ,
+            email=email,
+            password = User.generate_hash(raw_password)
+     
+        )
+        # '''Checks if password is hashed'''
+        # password = User.generate_hash(raw_password)
+
+        # data = parser.parse_args()
+        # new_user = User(email=data['email'],
+        #                 password=User.generate_hash(data['password'])
+        #                 )
+        # new_user.save_user()
+        # access_token = create_access_token(identity=data["email"])
+        # return{"message" : 'User {} was created'.format(data["email"]),
+        #         "access_token": access_token},201 
+
+         # attempt creating a new user in user model
+        try:
+            result = new_user.create_store_attendant()
+            access_token = create_access_token(identity = username)
+            refresh_token = create_refresh_token(identity = username)
+            return {
+                'message': 'Store attendant was created succesfully',
+                'status': 'ok',
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+                'username ': username
+                },201
+
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500    
 
 class UserLogin(Resource):
     def post(self):
