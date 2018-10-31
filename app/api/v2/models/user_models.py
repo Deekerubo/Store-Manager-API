@@ -75,7 +75,7 @@ class User():
     
     def find_by_email(self,email):
         '''Checks if the email created exists'''
-        cur.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
+        cur.execute("""SELECT * FROM users WHERE email='{}' ;""".format(email))
         rows = cur.fetchone()
                
         return rows

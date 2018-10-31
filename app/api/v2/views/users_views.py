@@ -87,9 +87,9 @@ class UserLogin(Resource):
         
         '''On successful login'''
         check_user = User.find_by_email(self,email)
-        if check_user == False:
-            return {'message': 'email does not  exist'},400
 
+        if check_user is None:
+            return {'message': 'invalid credentials'},400
         c_p = check_user[3]
         '''This compares the users password and the hashed password'''
 

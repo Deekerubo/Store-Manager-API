@@ -3,70 +3,56 @@ import psycopg2.extras
 from psycopg2 import sql
 from app.api.database import init_db
 
-# conn = init_db()
-# cur = conn.cursor()
+conn = init_db()
+cur = conn.cursor()
 
-class Entry(object):
+class Product():
     """Add new entry"""
-    def __init__(self):
-        conn = init_db()
-        cur = conn.cursor()
-        # self.db = init_db()
+    def __init__(self, name, description, quantity, price, category):
+        self.name = name 
+        self.description = description
+        self.quantity = quantity
+        self.price =price
+        self.category = category
         
-    def add_entry(self, name, description, quantity, price, category):
+        
+    def add_entry(self):
 
         """Adds new entries"""                                                   
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""
-                INSERT INTO products(product_name, product_description, quantity, price, category)
-                VALUES(%s,%s,%s,%s,%s)
-                """,
-                (name, description, quantity,price, category)) 
-            conn.commit()
-            return 'product created succesfully'
+        product = """INSERT INTO
+                 products (product_name, product_description, quantity, price, category)
+                VALUES('%s','%s','%s','%s','%s')""" % (self.name, self.description, self.quantity, self.price, self.category)
+          
+
+        cur.execute(product)
+        conn.commit()
+
+
+    def serializer(self):
+        return dict(
+            name=self.name
+        )
+                
         
-
-        except Exception as e:
-            print(e)
-            return ("product not created")
-
             
 
-    def find_product_name(name):
+    def find_product_name(self, name):
         '''Get a product by item name'''
         try:
         
-            self.cur.execute("""SELECT * FROM products WHERE product_name='{}' """.format(name))
-            rows = self.cur.fetchone()       
+            cur.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
+            rows = cur.fetchone()       
             return rows
         except:
             pass
     def all_products(self):
         """Return available entries"""
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""SELECT * FROM products  """)
-            rows = self.cur.fetchall()
-
-            return rows
-        
-        except Exception as e:
-            print(e)
-            return {'message': 'No products fetched'}, 500
+        cur.execute("""SELECT * FROM products ;""")
+        products = cur.fetchall()
+        return products
         
     def single_product(self, id):
         '''Return a single product '''
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
-            rows = self.cur.fetchall()
-        
-            return rows
-
-        except Exception as e:
-            print(e)
-            return {'message': 'No product fetched'}, 500
+        cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
+        rows = cur.fetchone()
+        return rows

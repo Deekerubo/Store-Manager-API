@@ -26,7 +26,7 @@ def destroy_tables():
     products = """DROP TABLE IF EXISTS products CASCADE"""
     sales = """DROP TABLE IF EXISTS sales CASCADE"""
     category = """DROP TABLE IF EXISTS category CASCADE"""
-    pass
+    
 def tables():
         """Used for creating the tables"""
         users = """CREATE TABLE IF NOT EXISTS users(
