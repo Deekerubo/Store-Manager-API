@@ -30,8 +30,8 @@ create table if not exists sales (
                 category varchar not null
 );
 -- create table to handle revoked tokens
-create table if not exists revoked_tokens (
+create table if not exists tokens (
   id         serial    not null primary key,
-  jti     varchar   
+  token     varchar   
 
 );

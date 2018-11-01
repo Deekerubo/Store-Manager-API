@@ -55,8 +55,11 @@ def tables():
                 id serial PRIMARY KEY,
                 name varchar(50) UNIQUE NOT NULL)"""
 
+        tokens = """CREATE TABLE IF NOT EXISTS tokens(
+                id serial PRIMARY KEY,
+                token varchar)"""
 
-        tables = [users, products, category, sales]
+        tables = [users, products, category, sales, tokens]
 
         return tables
 
