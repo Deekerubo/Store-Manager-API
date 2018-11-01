@@ -20,8 +20,8 @@ class Sales(Resource):
   
 
         
-        if not description:
-            return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
+        if not sales_items:
+            return make_response(jsonify({'message': 'Sale  can not be empty'}),400)
         if not isinstance(price, int):
             return {'message':'price must be integer'}
         elif not isinstance(quantity, int):
@@ -32,17 +32,6 @@ class Sales(Resource):
         response =new_sale.serializer()
         return {"message":"sucess!","product":response}
    
-
-        # if not item_name:
-        #     return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
-
-        # if not item_quantity:
-        #     return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
-        # if not item_price:
-        #     return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
-        # if not item_category:
-        #     return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
-
 
         
     @jwt_required 
