@@ -102,3 +102,12 @@ class UserLogin(Resource):
                 'access_token': access_token
                 },200
     
+class Logout(Resource):
+    '''Logout a user'''
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        logout_token= """INSERT INTO
+                tokens (token) VALUES ('{}')""" .format(jti)
+        cur.execute(logout_token)
+        conn.commit()
+        return {"status":"Success!","message": " User successfully logged out"}, 200
