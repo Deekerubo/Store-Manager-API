@@ -2,7 +2,7 @@ import re
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import jsonify, make_response,request
 from flask_restful import Resource,reqparse
-from flask_jwt_extended import (create_access_token, jwt_required, jwt_refresh_token_required)
+from flask_jwt_extended import (create_access_token, jwt_required, jwt_refresh_token_required, get_raw_jwt)
 from app.api.v2.models.user_models import User
 
 parser = reqparse.RequestParser()
@@ -102,4 +102,3 @@ class UserLogin(Resource):
                 'access_token': access_token
                 },200
     
-

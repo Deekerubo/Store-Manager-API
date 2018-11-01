@@ -38,14 +38,11 @@ class Product():
                 
         
     def find_product_name(self, name):
-        '''Get a product by item name'''
-        try:
-        
-            cur.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
-            rows = cur.fetchone()       
-            return rows
-        except:
-            pass
+        '''Get a product by item name''' 
+        cur.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
+        rows = cur.fetchone()       
+        return rows
+      
     def all_products(self):
         '''Return available entries'''
         cur.execute("""SELECT * FROM products ;""")
