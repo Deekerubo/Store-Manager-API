@@ -26,6 +26,7 @@ def destroy_tables():
     products = """DROP TABLE IF EXISTS products CASCADE"""
     sales = """DROP TABLE IF EXISTS sales CASCADE"""
     category = """DROP TABLE IF EXISTS category CASCADE"""
+    tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
     
 def tables():
         """Used for creating the tables"""
@@ -63,6 +64,3 @@ def tables():
 
         return tables
 
-# class DB():
-#         def __init__(self):
-#                 self.con = init_db()
