@@ -48,10 +48,8 @@ def tables():
         sales = """CREATE TABLE IF NOT EXISTS sales (
                 id serial PRIMARY KEY,
                 sales_items varchar(200) NOT NULL,
-                sales_description varchar (200) NOT NULL,
                 quantity int NOT NULL,
-                price int NOT NULL,
-                category varchar(20) NOT NULL)"""
+                price int NOT NULL)"""
 
         category = """CREATE TABLE IF NOT EXISTS category(
                 id serial PRIMARY KEY,

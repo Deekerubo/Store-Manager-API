@@ -7,7 +7,7 @@ conn = init_db()
 cur = conn.cursor()
 
 class Product():
-    """Add new entry"""
+    '''Add new entry'''
     def __init__(self, name, description, quantity, price, category):
         self.name = name 
         self.description = description
@@ -17,8 +17,7 @@ class Product():
         
         
     def add_entry(self):
-
-        """Adds new entries"""                                                   
+        '''Adds new entries'''                                                   
         product = """INSERT INTO
                  products (product_name, product_description, quantity, price, category)
                 VALUES('%s','%s','%s','%s','%s')""" % (self.name, self.description, self.quantity, self.price, self.category)
@@ -30,12 +29,14 @@ class Product():
 
     def serializer(self):
         return dict(
-            name=self.name
+            name=self.name,
+            description=self.description,
+            quantity=self.quantity,
+            price=self.price,
+            category=self.category
         )
                 
         
-            
-
     def find_product_name(self, name):
         '''Get a product by item name'''
         try:
@@ -46,7 +47,7 @@ class Product():
         except:
             pass
     def all_products(self):
-        """Return available entries"""
+        '''Return available entries'''
         cur.execute("""SELECT * FROM products ;""")
         products = cur.fetchall()
         return products
@@ -54,5 +55,5 @@ class Product():
     def single_product(self, id):
         '''Return a single product '''
         cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
-        rows = cur.fetchone()
-        return rows
+        sproduct = cur.fetchone()
+        return sproduct

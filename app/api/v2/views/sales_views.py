@@ -1,26 +1,22 @@
 import json
 import os
-
+import re
 from flask import Flask, request, jsonify, make_response
 from flask_restful import Resource, Api
 from flask_jwt_extended import jwt_required
-from app.api.v2.models.sales_models import Order
+from app.api.v2.models.sales_models import Sale
 
 
-class NewOrder(Resource):
-    def __init__(self):
-        self.orders = Order()
+class Sales(Resource):
 
-    '''Create a  sale  order'''
-    # @jwt_required
+    @jwt_required
     def post(self):
+        '''Create a  sale  order'''
         data = request.get_json()
 
-        name = data['sales_items']
-        description = data['sales_description']
-        price = data['price']
+        sales_items = data['sales_items']
         quantity = data['quantity']
-        category = data['category']
+        price = data['price']
   
 
         
@@ -28,19 +24,13 @@ class NewOrder(Resource):
             return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
         if not isinstance(price, int):
             return {'message':'price must be integer'}
-
         elif not isinstance(quantity, int):
             return {'message':'quantity must be integer'}
-        # find_name = Order.find_sale_name(name)
 
-        # if find_name != False:
-        #     return{'message': 'item exists'}
-        new_order = self.orders.add_order(name, description, quantity, price, category)
-        if new_order:
-            print(new_order)
-            return "successful"
-        else:
-            return "not succesful"
+        new_sale = Sale(sales_items, quantity, price)
+        new_sale.add_sale()
+        response =new_sale.serializer()
+        return {"message":"sucess!","product":response}
    
 
         # if not item_name:
@@ -55,22 +45,39 @@ class NewOrder(Resource):
 
 
         
-    # @jwt_required 
+    @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
-        if Order.all_orders():
-                rows=  Order.all_orders()
-                return jsonify({'message': 'order retrieved succesfully','status':'ok','products': rows})
-        return jsonify({'message':'no orders in the database yet'})
+        sales = Sale.all_orders(self)
+        all_ss = []
+        for sale in sales:
+            format_sale = {
+                "product_id":sale[0],
+                "name":sale[1],
+                "descrption":sale[2],
+                "quantity":sale[3],
+                "price":sale[4],
+                "category":sale[5]
+            }
+            all_ss.append(format_sale)
+        return {"message":"Sales Retrieved!","products":all_ss}
+
+
 
 class SingleOrder(Resource):
-    def __init__(self):
-        self.orders = Order()
 
-    # @jwt_required
-    def get(self, salesID):
-        rows=  Order.single_order(salesID)
-        if rows:
-            return jsonify({'message': 'order retrieved succesfully','status':'ok','products': rows},200)
-        else:
-            return jsonify({'message':'order ID not found' }),404
+    @jwt_required
+    def get(self, id):
+        ssale = Sale.single_product(self,id)
+        if ssale is None:
+            return{'message':'sale not found'}
+        format_sale = {
+                "product_id":ssale[0],
+                "name":ssale[1],
+                "descrption":ssale[2],
+                "quantity":ssale[3],
+                "price":ssale[4],
+                "category":ssale[5]
+            }
+        
+        return format_sale

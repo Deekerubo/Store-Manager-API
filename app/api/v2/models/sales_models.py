@@ -3,62 +3,42 @@ import psycopg2.extras
 from psycopg2 import sql
 from app.api.database import init_db
 
-class Order(object):
+conn = init_db()
+cur = conn.cursor()
+class Sale():
 
-    """Add new entry"""
-    def __init__(self):
-        # self.db = init_db
-        self.conn = init_db()
-        cur = self.conn.cursor()
+    def __init__(self, sales_items, quantity,price):
+        '''Create a sale Orderss'''
+        self.sales_items= sales_items
+        self.quantity= quantity
+        self.price= price
 
-    def add_order(self, name, description, quantity, price, category):
+    def add_sale(self):
         """Adds new orders"""
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""
-                INSERT INTO sales(sales_items, sales_description, quantity, price, category)
-                VALUES(%s,%s,%s,%s)
-                """,
-                (name, description, quantity, price, category)) 
-            conn.commit()
-            return 'order created succesfully'
-        
+        sales = """INSERT INTO
+                products (sales_items, quantity, price)
+                VALUES('%s','%s','%s')""" % (self.sales_items, self.quantity, self.price)
+          
 
-        except Exception as e:
-            print(e)
-            return ("order not created")
+        cur.execute(sales)
+        conn.commit()
 
-           
-    #  def find_sale_name(item_name):
-    
-    #     return next((entry for entry in Order_List if entry['item_name'] ==item_name), False)
+     def serializer(self):
+            return dict(
+            sales_items=self.sales_items,
+            quantity=self.quantity,
+            price=self.price
+        )           
 
     def all_orders(self):
         """Return available orders"""
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""SELECT * FROM sales  """)
-            rows = cur.fetchall()
-
-            return rows
-        
-        except Exception as e:
-            print(e)
-            return {'message': 'No products fetched'}, 500
+        cur.execute("""SELECT * FROM products ;""")
+        sales = cur.fetchall()
+        return sales
         
 
     def single_order(self, id):
         '''Return a single Order '''
-        try:
-            # conn = init_db()
-            # cur = conn.cursor()
-            self.cur.execute("""SELECT * FROM products WHERE id='{}' """.format(id))
-            rows = cur.fetchall()
-        
-            return rows
-
-        except Exception as e:
-            print(e)
-            return {'message': 'No product fetched'}, 500
+        cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
+        singlesale = cur.fetchone()
+        return singlesale

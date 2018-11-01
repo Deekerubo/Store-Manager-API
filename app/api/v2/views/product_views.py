@@ -9,7 +9,7 @@ from app.api.v2.models.product_models import Product
 
 
 class Products(Resource):
-    # @jwt_required
+    @jwt_required
     def post(self):
         '''Create a new product'''
         data = request.get_json()
@@ -24,7 +24,6 @@ class Products(Resource):
         if not isinstance(price, int):
             return {'message':'price must be integer',
                     'item': price }
-
         elif not isinstance(quantity, int):
             return {'message':'quantity must be integer'}
 
@@ -33,7 +32,7 @@ class Products(Resource):
         res =new_entry.serializer()
         return {"message":"sucess!","product":res}
         
-    # @jwt_required
+    @jwt_required
     def get(self):
         '''Get all products'''
         products = Product.all_products(self)
@@ -52,6 +51,7 @@ class Products(Resource):
 
 
 class ProductDetails(Resource):
+    @jwt_required
     def get(self,id):
         prod = Product.single_product(self,id)
         if prod is None:
