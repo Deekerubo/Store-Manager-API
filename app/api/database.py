@@ -10,7 +10,7 @@ def get_connection(url):
 
 def init_db():
     con = get_connection(url)
-    print(con)
+#     print(con)
     return con
 
 def create_tables():
@@ -26,15 +26,24 @@ def destroy_tables():
     products = """DROP TABLE IF EXISTS products CASCADE"""
     sales = """DROP TABLE IF EXISTS sales CASCADE"""
     category = """DROP TABLE IF EXISTS category CASCADE"""
+    tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
+
+    conn = get_connection(url)
+    cur = conn.cursor()
+    queries = tables(users, products, sales, category,tokens)
+    for query in queries:
+        cur.execute(query)
+    conn.commit()
+
     
 def tables():
         """Used for creating the tables"""
         users = """CREATE TABLE IF NOT EXISTS users(
                 id serial PRIMARY KEY,
-                username varchar (20) NOT NULL,
+                username varchar (100) NOT NULL,
                 email varchar(90) UNIQUE NOT NULL,
                 password varchar(120) NOT NULL,
-                role float(1) NOT NULL)"""
+                role boolean NOT NULL)"""
 
         products = """CREATE TABLE IF NOT EXISTS products(
                 id serial PRIMARY KEY,
@@ -63,6 +72,3 @@ def tables():
 
         return tables
 
-# class DB():
-#         def __init__(self):
-#                 self.con = init_db()

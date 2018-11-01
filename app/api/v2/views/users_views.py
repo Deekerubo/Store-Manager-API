@@ -2,20 +2,26 @@ import re
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import jsonify, make_response,request
 from flask_restful import Resource,reqparse
-from flask_jwt_extended import (create_access_token, jwt_required, jwt_refresh_token_required, get_raw_jwt)
+from flask_jwt_extended import (create_access_token, jwt_required, jwt_refresh_token_required, get_raw_jwt, get_jwt_identity)
 from app.api.v2.models.user_models import User
 
 parser = reqparse.RequestParser()
 parser.add_argument('username' , help='Username cannot be blank', type=str)
 parser.add_argument('email', required=True, help='Email cannot be blank', type=str)
 parser.add_argument('password', required=True, help='Password cannot be blank', type=str)
-parser.add_argument('role',  type=int)
+parser.add_argument('role',  type=bool)
 
   
 
 class UserRegistration(Resource):
+    # @jwt_required
     def post(self):
         '''Remove all white spaces'''
+        # current_user = get_jwt_identity()
+        # print(current_user)
+        # # current_user['admin'] = True or False
+        # if current_user['admin'] == False:
+        #     return {'error':'Sorry, no rights'}
         args =  parser.parse_args()
         raw_password = args.get('password')
         email = args.get('email')
@@ -74,7 +80,6 @@ class UserRegistration(Resource):
             return {'message': 'Something went wrong'}, 500    
 
 class UserLogin(Resource):
-    
     def post(self):
         '''Checks for white spaces'''
         args =  parser.parse_args()
@@ -90,24 +95,23 @@ class UserLogin(Resource):
 
         if check_user is None:
             return {'message': 'invalid credentials'},400
-        c_p = check_user[3]
-        '''This compares the users password and the hashed password'''
+        check_pass = check_user[3]
 
-        if not check_password_hash(c_p, password):
+        '''This compares the users password and the hashed password'''
+        if not check_password_hash(check_pass, password):
             return{'message':'invalid credentials'}, 400
         access_token = create_access_token(identity =  email)
+        # access_token = create_access_token(identity ={'email': email, 'admin': admin, 'id':id})
         return {
                 'message': 'User was logged in succesfully',
                 'status':'ok',
                 'access_token': access_token
                 },200
     
-class Logout(Resource):
-    '''Logout a user'''
-    def post(self):
-        jti = get_raw_jwt()['jti']
-        logout_token= """INSERT INTO
-                tokens (token) VALUES ('{}')""" .format(jti)
-        cur.execute(logout_token)
-        conn.commit()
-        return {"status":"Success!","message": " User successfully logged out"}, 200
+# class Logout(Resource):
+#     '''Logout a user'''
+#     @jwt_required
+#     def post(self):
+#        """Logout user"""
+#        logout_user = User().logout_user(request.headers['Authorization'].split(" ")[1])
+#        return logout_user

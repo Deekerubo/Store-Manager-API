@@ -30,6 +30,9 @@ class Products(Resource):
                     'item': price }
         elif not isinstance(quantity, int):
             return {'message':'quantity must be integer'}
+        product = Product.find_product_name(self,data['product_name'])
+        if product:
+            return {"message":"product item already exists!"},400
 
         new_entry = Product(name, description, quantity, price, category)
         new_entry.add_entry()
@@ -70,5 +73,9 @@ class ProductDetails(Resource):
             }
         
         return format_p
+    
+    @jwt_required
+    def delete(self, id):
+        dele = Product.delete_product(self, id)
+        return {'message':'sale succesfully deleted'}
        
-      

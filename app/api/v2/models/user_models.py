@@ -7,8 +7,11 @@ from app.api.database import init_db
 
 conn = init_db()
 cur = conn.cursor()
+
+# blacklist = set()
+
 class User():
-    def __init__(self, username, email, password, role):
+    def __init__(self, username, email, password, role = False):
        
         self.username = username
         self.email = email
@@ -30,23 +33,12 @@ class User():
             print(e)
             return ("ran into trouble registering you")
 
-    # def is_admin(self,email):
-    #     '''Checks if user is an admin'''
-    #     self.cur.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
-    #     rows = self.cur.fetchone()
-    #     if rows :
-    #         if rows['role'] == 1:
-    #             return True
-    #         return False
-               
-    #     return False
 
     # def make_admin(attendant_id):
     #     '''make a store attendant an admin'''
     #     role = 1
     #     try:
     #         cur.execute("""UPDATE users  SET role='{}'  WHERE id='{}' """.format(role,attendant_id))
-    #         # db.cursor.commit()``
     #         conn.commit()
         
     #         return 'store attendant has been made admin'
@@ -67,8 +59,9 @@ class User():
     def fetch_single_user(self, email):
         '''checks if the username exists'''
         cur.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
+        # cur.execute("ROLLBACK")
         user = cur.fetchone()
-        conn.commit() 
+        # conn.commit() 
 
         return user
     
@@ -77,10 +70,13 @@ class User():
         '''Checks if the email created exists'''
         cur.execute("""SELECT * FROM users WHERE email='{}' ;""".format(email))
         rows = cur.fetchone()
-               
         return rows
 
-
+    # def logout_user(self):
+    #     """Logout user by blacklisting token"""
+    #     token = get_raw_jwt()['jti']
+    #     blacklist.add(token)
+    #     return dict(message="User log out success", status="ok"), 200
     
     # @staticmethod
     # def make_admin(attendant_id):

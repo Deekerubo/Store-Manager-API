@@ -42,7 +42,7 @@ class Product():
         cur.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
         rows = cur.fetchone()       
         return rows
-      
+
     def all_products(self):
         '''Return available entries'''
         cur.execute("""SELECT * FROM products ;""")
@@ -54,3 +54,22 @@ class Product():
         cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
         sproduct = cur.fetchone()
         return sproduct
+        
+        conn.commit()
+
+    def find_stock(product_id):
+        cur.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
+        rows = cur.fetchone()
+        return rows
+
+        conn.commit()
+
+    def delete_product(self, id):
+        '''Delete a product'''
+        cur.execute("""SELECT * FROM  products WHERE id={};""".format(id))
+        del1 = cur.fetchone()
+        if not del1:
+            return{'message':'product ID not found'}
+        cur.execute("""DELETE FROM  products WHERE id={};""".format(id))
+        conn.commit()
+        return {'message':'Deleted'}
