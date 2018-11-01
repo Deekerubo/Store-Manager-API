@@ -4,6 +4,7 @@ from flask import jsonify, make_response,request
 from flask_restful import Resource,reqparse
 from flask_jwt_extended import (create_access_token, jwt_required, jwt_refresh_token_required, get_raw_jwt)
 from app.api.v2.models.user_models import User
+from app.api.v2.utils.decorators import admin_only
 
 parser = reqparse.RequestParser()
 parser.add_argument('username' , help='Username cannot be blank', type=str)
@@ -74,7 +75,6 @@ class UserRegistration(Resource):
             return {'message': 'Something went wrong'}, 500    
 
 class UserLogin(Resource):
-    
     def post(self):
         '''Checks for white spaces'''
         args =  parser.parse_args()
@@ -91,8 +91,8 @@ class UserLogin(Resource):
         if check_user is None:
             return {'message': 'invalid credentials'},400
         c_p = check_user[3]
-        '''This compares the users password and the hashed password'''
 
+        '''This compares the users password and the hashed password'''
         if not check_password_hash(c_p, password):
             return{'message':'invalid credentials'}, 400
         access_token = create_access_token(identity =  email)
@@ -104,6 +104,7 @@ class UserLogin(Resource):
     
 class Logout(Resource):
     '''Logout a user'''
+    @jwt_required
     def post(self):
         jti = get_raw_jwt()['jti']
         logout_token= """INSERT INTO

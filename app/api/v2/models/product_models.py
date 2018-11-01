@@ -24,6 +24,7 @@ class Product():
           
 
         cur.execute(product)
+        # cur.execute("ROLLBACK")
         conn.commit()
 
 
@@ -54,3 +55,8 @@ class Product():
         cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
         sproduct = cur.fetchone()
         return sproduct
+
+    def find_stock(product_id):
+        cur.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
+        rows = cur.fetchone()
+        return rows

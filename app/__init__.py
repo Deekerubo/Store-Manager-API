@@ -11,7 +11,16 @@ def create_app(config_name ="development"):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.config["JWT_SECRET_KEY"] = "SECRET"
+    app.config['JWT_BLACKLIST_ENABLED'] = True
+    app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
     jwt = JWTManager(app)
+    @jwt.token_in_blacklist_loader
+    def check_if_token_in_blacklist(decrypted_token):
+        jti = decrypted_token['jti']
+        cur.execute("SELECT * FROM tokens='{}';".format(jti))
+        blacklist= cur.fetchone()
+        return blacklist
+    
 
     with app.app_context():
         create_tables()

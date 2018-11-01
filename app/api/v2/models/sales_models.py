@@ -16,18 +16,17 @@ class Sale():
     def add_sale(self):
         """Adds new orders"""
         sales = """INSERT INTO
-                products (sales_items, quantity, price)
+                sales (sales_items, quantity, price)
                 VALUES('%s','%s','%s')""" % (self.sales_items, self.quantity, self.price)
           
-
         cur.execute(sales)
         conn.commit()
 
-     def serializer(self):
-            return dict(
-            sales_items=self.sales_items,
-            quantity=self.quantity,
-            price=self.price
+    def serializer(self):
+        return dict(
+        sales_items=self.sales_items,
+        quantity=self.quantity,
+        price=self.price
         )           
 
     def all_orders(self):

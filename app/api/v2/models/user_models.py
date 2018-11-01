@@ -30,29 +30,18 @@ class User():
             print(e)
             return ("ran into trouble registering you")
 
-    # def is_admin(self,email):
-    #     '''Checks if user is an admin'''
-    #     self.cur.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
-    #     rows = self.cur.fetchone()
-    #     if rows :
-    #         if rows['role'] == 1:
-    #             return True
-    #         return False
-               
-    #     return False
 
-    # def make_admin(attendant_id):
-    #     '''make a store attendant an admin'''
-    #     role = 1
-    #     try:
-    #         cur.execute("""UPDATE users  SET role='{}'  WHERE id='{}' """.format(role,attendant_id))
-    #         # db.cursor.commit()``
-    #         conn.commit()
+    def make_admin(attendant_id):
+        '''make a store attendant an admin'''
+        role = 1
+        try:
+            cur.execute("""UPDATE users  SET role='{}'  WHERE id='{}' """.format(role,attendant_id))
+            conn.commit()
         
-    #         return 'store attendant has been made admin'
-    #     except Exception as e:
-    #         print(e)
-    #         return {'message': 'Something went wrong'}, 500
+            return 'store attendant has been made admin'
+        except Exception as e:
+            print(e)
+            return {'message': 'Something went wrong'}, 500
 
     # def find_by_id(user_id):
 

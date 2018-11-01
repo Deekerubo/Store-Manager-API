@@ -30,7 +30,7 @@ class Sales(Resource):
         new_sale = Sale(sales_items, quantity, price)
         new_sale.add_sale()
         response =new_sale.serializer()
-        return {"message":"sucess!","product":response}
+        return {"message":"sucess!","sale":response}
    
 
         
@@ -49,15 +49,14 @@ class Sales(Resource):
                 "category":sale[5]
             }
             all_ss.append(format_sale)
-        return {"message":"Sales Retrieved!","products":all_ss}
+        return {"message":"Sales Retrieved!","sales":all_ss}
 
 
 
 class SingleOrder(Resource):
-
     @jwt_required
     def get(self, id):
-        ssale = Sale.single_product(self,id)
+        ssale = Sale.single_order(self,id)
         if ssale is None:
             return{'message':'sale not found'}
         format_sale = {
