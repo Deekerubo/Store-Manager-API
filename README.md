@@ -35,6 +35,8 @@ Install all the requirements
     $ pip install -r requirements.txt
 ```
 
+Run my version 2 test
+`python -m pytest --cov=app/tests/v2'
 
 #Endpoints
 
