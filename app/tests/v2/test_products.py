@@ -2,6 +2,7 @@ import unittest
 import os
 import json
 from app import create_app
+from app.api.database import destroy_tables
 
 ADD_ENTRY_URL = '/api/v1/products'
 GET_SINGLE_ENTRY = '/api/v1/products/1'
@@ -61,4 +62,7 @@ class Test_Entry_Case(unittest.TestCase):
                                    content_type = 'application/json')
         data = json.loads(response.get_data().decode("UTF-8"))
         self.assertEqual(response.status_code, 200)
-    
+
+    def tearDown(self):
+        destroy_tables()
+
