@@ -7,16 +7,15 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from .basemodel import Basemodel
 
 
-env =os.environ['ENV']
-if env is 'testing':
-    url=os.getenv("DATABASE_TEST")
-elif env is 'development':
-    url=os.getenv('DATABASE_URL')
+# env =os.environ['ENV']
+# if env is 'testing':
+#     url=os.getenv("DATABASE_TEST")
+# elif env is 'development':
+url=os.getenv('DATABASE_URL')
 
 
 class User():
     
-  
     def __init__(self):
         url=os.getenv('DATABASE_URL')
         self.conn=psycopg2.connect(url)

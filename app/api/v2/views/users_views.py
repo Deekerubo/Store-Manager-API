@@ -17,11 +17,7 @@ class UserRegistration(Resource):
     # @jwt_required
     def post(self):
         '''Remove all white spaces'''
-        # current_user = get_jwt_identity()
-        # print(current_user)
-        # # current_user['admin'] = True or False
-        # if current_user['admin'] == False:
-        #     return {'error':'Sorry, no rights'}
+        
         args =  parser.parse_args()
         raw_password = args.get('password')
         email = args.get('email')
@@ -45,33 +41,15 @@ class UserRegistration(Resource):
 
         '''check upon validation usename exists''' 
         
-        # this_user = User.find_by_username(username)
-        # print(this_user)
-        # if this_user != None:
-        #     return {'message': 'username already exist'},400
-
-        # '''check if authorized for signup'''
-        # # print(email)
-        # user = User().is_admin(email)
-        # if user != True:
-        #     return make_response(jsonify({'message' : 'You are not authorized to perform this function'}), 401)
-
-
-        # '''send validated user input to user model'''
-        # new_user = User(
-        #     username,
-        #     email,
-        #     generate_password_hash(raw_password),
-        #     role
-        #                )
+        
         
         try:
             result = user_object.save_user(username,email,generate_password_hash(raw_password),role)
             access_token = create_access_token(identity = username)
             return {
                 'message': 'Store attendant was created succesfully',
-                'status': 'ok',
-                'access_token': access_token,
+                # 'status': 'ok',
+                # 'access_token': access_token,
                 'username ': username
                 },201
 

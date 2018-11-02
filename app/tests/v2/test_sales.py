@@ -14,7 +14,7 @@ GET_ALL_ORDERS = '/api/v2/sales'
 class Test_Order_Case(unittest.TestCase):
     def setUp(self):
         '''Initialize app and define test variables'''
-        self.app = create_app('testing')
+        self.app = create_app()
         self.client = self.app.test_client()
         self. orders_item = { "sales_item": "name",
                                 "quantity":35241,
