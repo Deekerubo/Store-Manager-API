@@ -1,75 +1,65 @@
 """app/api/v2/models.py contains models for the app"""
 import psycopg2.extras
 from psycopg2 import sql
-from app.api.database import init_db
+# from app.api.database import init_db
+from .basemodel import Basemodel
 
-conn = init_db()
-cur = conn.cursor()
-
-class Product():
+class Product(Basemodel):
     '''Add new entry'''
-    def __init__(self, name, description, quantity, price, category):
-        self.name = name 
-        self.description = description
-        self.quantity = quantity
-        self.price =price
-        self.category = category
         
-        
-    def add_entry(self):
+    def add_entry(self,name, description, quantity, price, category):
         '''Adds new entries'''                                                   
         product = """INSERT INTO
                  products (product_name, product_description, quantity, price, category)
-                VALUES('%s','%s','%s','%s','%s')""" % (self.name, self.description, self.quantity, self.price, self.category)
+                VALUES('%s','%s','%s','%s','%s')""" % (name, description, quantity, price, category)
           
 
-        cur.execute(product)
-        conn.commit()
+        self.cursor.execute(product)
+        self.conn.commit()
 
-
-    def serializer(self):
-        return dict(
-            name=self.name,
-            description=self.description,
-            quantity=self.quantity,
-            price=self.price,
-            category=self.category
-        )
                 
         
     def find_product_name(self, name):
         '''Get a product by item name''' 
-        cur.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
-        rows = cur.fetchone()       
+        self.cursor.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
+        rows = self.cursor.fetchone()       
         return rows
 
     def all_products(self):
         '''Return available entries'''
-        cur.execute("""SELECT * FROM products ;""")
-        products = cur.fetchall()
+        self.cursor.execute("""SELECT * FROM products ;""")
+        products = self.cursor.fetchall()
         return products
         
     def single_product(self, id):
         '''Return a single product '''
-        cur.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
-        sproduct = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
+        sproduct = self.cursor.fetchone()
         return sproduct
         
-        conn.commit()
+    
 
     def find_stock(product_id):
-        cur.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
-        rows = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
+        rows = self.cursor.fetchone()
         return rows
 
-        conn.commit()
+        self.conn.commit()
 
     def delete_product(self, id):
         '''Delete a product'''
-        cur.execute("""SELECT * FROM  products WHERE id={};""".format(id))
-        del1 = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM  products WHERE id={};""".format(id))
+        del1 = self.cursor.fetchone()
         if not del1:
             return{'message':'product ID not found'}
-        cur.execute("""DELETE FROM  products WHERE id={};""".format(id))
-        conn.commit()
+        self.cursor.execute("""DELETE FROM  products WHERE id={};""".format(id))
+        self.conn.commit()
         return {'message':'Deleted'}
+
+    def modify_items(self, id,product_name,description,quantity,price,category):
+        '''modify a produtct'''
+        self.cursor.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
+        modify = self.cursor.fetchone()
+        if not modify:
+            return{'message':'product item not found'}
+        return modify
