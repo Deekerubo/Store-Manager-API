@@ -1,7 +1,6 @@
 """app/api/v2/models.py contains models for the app"""
 import psycopg2.extras
 from psycopg2 import sql
-# from app.api.database import init_db
 from .basemodel import Basemodel
 
 class Product(Basemodel):
@@ -37,14 +36,12 @@ class Product(Basemodel):
         sproduct = self.cursor.fetchone()
         return sproduct
         
-    
 
     def find_stock(product_id):
         self.cursor.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
         rows = self.cursor.fetchone()
         return rows
 
-        self.conn.commit()
 
     def delete_product(self, id):
         '''Delete a product'''
@@ -54,7 +51,7 @@ class Product(Basemodel):
             return{'message':'product ID not found'}
         self.cursor.execute("""DELETE FROM  products WHERE id={};""".format(id))
         self.conn.commit()
-        return {'message':'Deleted'}
+        return {'message':'Product Deleted'}, 200
 
     def modify_items(self, id,product_name,description,quantity,price,category):
         '''modify a produtct'''

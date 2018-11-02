@@ -73,7 +73,7 @@ class Test_Entry_Case(unittest.TestCase):
                                     data = json.dumps(self.entry_item),
                                     content_type = 'application/json')
         data = json.loads(response.get_data().decode("UTF-8"))        
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 401)
 
         '''Test  gets all the sale entries'''
         response = self.client.get(GET_ALL_ENTRY, 

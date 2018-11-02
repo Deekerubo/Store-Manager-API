@@ -6,9 +6,9 @@ from flask_restful import Resource, Api
 from flask_jwt_extended import jwt_required
 from app.api.v2.models.sales_models import Sale
 
-sales_object = Sale
+sales_object = Sale()
 class Sales(Resource):
-    @jwt_required
+    # @jwt_required
     def post(self):
         '''Create a  sale  order'''
         data = request.get_json()
@@ -27,17 +27,14 @@ class Sales(Resource):
         if sale:
             return {"message":"Sale item already exists!"},400
 
-        # new_sale = Sale(sales_items, quantity, price)
-        # new_sale.add_sale()
-        # response =new_sale.serializer()
-        # return {"message":"Sale Order created successfully!","sale":response}, 200
+       
         sales_object.add_sale(sales_items,quantity,price)
         sale1 = sales_object.find_sale_name(sales_items)
         return{"message":"sale created succefully","sale":sale1}, 201
    
 
         
-    @jwt_required 
+    # @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
         sales = sales_object.all_orders()
@@ -46,27 +43,31 @@ class Sales(Resource):
 
 
 class SingleOrder(Resource):
-    @jwt_required
+    # @jwt_required
     def get(self, id):
         ssale = Sale.single_order(self,id)
         if ssale is None:
             return{'message':'sale not found'}
-        format_sale = {
-                "product_id":sale[0],
-                "name":ssale[1],
-                "descrption":ssale[2],
-                "quantity":ssale[3],
-                "price":ssale[4],
-                "category":ssale[5]
-            }
+        return ssale
         
-        return format_sale
-    @jwt_required
-    # @admin_only
+    # @jwt_required
     def delete(self, id):
         dele = Sale.delete_order(self, id)
-        return {'message':'sale succesfully deleted'}
+        return {'message':'sale succesfully deleted'},200
 
     def put (self, id):
-        modify = Sale.modify_items(self, id)
-        return {'message':'Product updated succesfully'}, 200
+            data = request.get_json()
+            sales_items = data.get('sales_items')
+            quantity = data.get('quantity')
+            price = data.get('price')
+            
+
+            sale= sales_object.single_order(id)
+            if not name:
+                sales_items=sale['sales_items']
+            if not quantity:
+                quantity=product['quantity']
+            if not price:
+                price=product['price']
+            sales_object.modify_items(id,sales_items, quantity,price)
+            return {'message':'Sale updated succesfully'}, 200
