@@ -1,15 +1,16 @@
 '''contains models for the app'''
 import psycopg2.extras
 from psycopg2 import sql
-from app.api.database import init_db
+from .basemodel import Basemodels
+# from app.api.database import init_db
 
-conn = init_db()
-cur = conn.cursor()
+# conn = init_db()
+# cur = conn.cursor()
 
-class Sale():
+class Sale(Basemodels):
 
     def __init__(self, sales_items, quantity,price):
-        '''Create a sale Orderss'''
+        '''Create a sale Orders'''
         self.sales_items= sales_items
         self.quantity= quantity
         self.price= price
@@ -20,8 +21,8 @@ class Sale():
                 sales (sales_items, quantity, price)
                 VALUES('%s','%s','%s')""" % (self.sales_items, self.quantity, self.price)
           
-        cur.execute(sales)
-        # conn.commit()
+        self.cursor.execute(sales)
+        self.conn.commit()
 
     def serializer(self):
         return dict(
@@ -31,40 +32,45 @@ class Sale():
         )           
     def find_sale_name(self, sales_items):
         '''Get a product by item name''' 
-        cur.execute("""SELECT * FROM sales WHERE sales_items='{}'; """.format(sales_items))
-        rows = cur.fetchone()       
+        self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'; """.format(sales_items))
+        rows = self.cursor.fetchone()       
         return rows
-        
+
+        self.conn.commit()
+
     def all_orders(self):
         """Return available orders"""
-        cur.execute("""SELECT * FROM sales ;""")
-        sales = cur.fetchall()
+        self.cursor.execute("""SELECT * FROM sales ;""")
+        sales = self.cursor.fetchall()
         print(sales)
         return sales
         
-        # conn.commit()
+        self.conn.commit()
 
     def single_order(self, id):
         '''Return a single Order '''
-        cur.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
-        singlesale = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
+        singlesale = self.cursor.fetchone()
         return singlesale
 
-        # conn.commit()
+        self.conn.commit()
 
     def delete_order(self, id):
         '''Delete a product'''
-        cur.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
-        dele = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+        dele = self.cursor.fetchone()
         if not dele:
             return{'message':'sale ID not found'}
-        cur.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+        self.cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+
+        self.conn.commit()
 
     def modify_items(self, id):
         '''modify a produtct'''
-        cur.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
-        modify = cur.fetchone()
+        self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
+        modify = self.cursor.fetchone()
         if not modify:
             return{'message':'sales item not found'}
-        cur.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
-        # conn.commit()
+        self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
+
+        self.conn.commit()

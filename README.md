@@ -54,3 +54,5 @@ POST /products | Create a product|
 ---------------|-----------|
 POST /sales | Create a sale order|
 
+export ENV="development"
+export ENV='testing'

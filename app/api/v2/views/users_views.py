@@ -12,7 +12,7 @@ parser.add_argument('password', required=True, help='Password cannot be blank', 
 parser.add_argument('role',  type=bool)
 
   
-
+user_object=User()
 class UserRegistration(Resource):
     # @jwt_required
     def post(self):
@@ -58,15 +58,15 @@ class UserRegistration(Resource):
 
 
         # '''send validated user input to user model'''
-        new_user = User(
-            username,
-            email,
-            generate_password_hash(raw_password),
-            role
-                       )
+        # new_user = User(
+        #     username,
+        #     email,
+        #     generate_password_hash(raw_password),
+        #     role
+        #                )
         
         try:
-            result = new_user.save_user()
+            result = user_object.save_user(username,email,generate_password_hash(raw_password),role)
             access_token = create_access_token(identity = username)
             return {
                 'message': 'Store attendant was created succesfully',
@@ -91,8 +91,9 @@ class UserLogin(Resource):
             return {'message': 'password cannot be empty'},400
         
         '''On successful login'''
-        check_user = User.find_by_email(self,email)
-
+       
+        check_user = user_object.find_by_email(email)
+        print(check_user)
         if check_user is None:
             return {'message': 'invalid credentials'},400
         check_pass = check_user[3]
@@ -104,9 +105,8 @@ class UserLogin(Resource):
         # access_token = create_access_token(identity ={'email': email, 'admin': admin, 'id':id})
         return {
                 'message': 'User was logged in succesfully',
-                'status':'ok',
                 'access_token': access_token
-                },200
+                },201
     
 # class Logout(Resource):
 #     '''Logout a user'''

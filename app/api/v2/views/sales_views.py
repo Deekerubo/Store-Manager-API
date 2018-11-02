@@ -5,11 +5,9 @@ from flask import Flask, request, jsonify, make_response
 from flask_restful import Resource, Api
 from flask_jwt_extended import jwt_required
 from app.api.v2.models.sales_models import Sale
-# from app.api.v2.utils.decorators import admin_only
 
-
+sales_object = Sale
 class Sales(Resource):
-
     @jwt_required
     def post(self):
         '''Create a  sale  order'''
@@ -29,29 +27,22 @@ class Sales(Resource):
         if sale:
             return {"message":"Sale item already exists!"},400
 
-        new_sale = Sale(sales_items, quantity, price)
-        new_sale.add_sale()
-        response =new_sale.serializer()
-        return {"message":"Sale Order created successfully!","sale":response}, 200
+        # new_sale = Sale(sales_items, quantity, price)
+        # new_sale.add_sale()
+        # response =new_sale.serializer()
+        # return {"message":"Sale Order created successfully!","sale":response}, 200
+        sales_object.add_sale(sales_items,quantity,price)
+        sale1 = sales_object.find_sale_name(sales_items)
+        return{"message":"sale created succefully","sale":sale1}, 201
    
 
         
     @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
-        sales = Sale.all_orders(self)
-        all_ss = []
-        for sale in sales:
-            print(sale)
-            format_sale = {
-                "sales_items":sale[0],
-                "quantity":sale[1],
-                "price":sale[2]
-                
-            }
-            all_ss.append(format_sale)
-        return {"message":"Sales Retrieved!","sales":all_ss}
-
+        sales = sales_object.all_orders()
+        return {"message":"created successfuly!","sales":sales}, 201
+        
 
 
 class SingleOrder(Resource):
