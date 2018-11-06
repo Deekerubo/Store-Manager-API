@@ -2,7 +2,7 @@
 import psycopg2
 import os
 
-
+# url = (database="store_manger", user="postgres", password="nyambumo", host="localhost")
 class DB():
         def __init__(self, url):
                 self.url=url
@@ -28,6 +28,7 @@ class DB():
                 sales = """DROP TABLE IF EXISTS sales CASCADE"""
                 category = """DROP TABLE IF EXISTS category CASCADE"""
                 tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
+                pass
 
                 conn = self.get_connection()
                 cur = conn.cursor()
