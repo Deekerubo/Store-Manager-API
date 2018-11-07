@@ -14,7 +14,7 @@ parser.add_argument('role',  type=bool)
   
 user_object=User()
 class UserRegistration(Resource):
-    # @jwt_required
+    @jwt_required
     def post(self):
         '''Remove all white spaces'''
         
@@ -48,8 +48,8 @@ class UserRegistration(Resource):
             access_token = create_access_token(identity = username)
             return {
                 'message': 'Store attendant was created succesfully',
-                # 'status': 'ok',
-                # 'access_token': access_token,
+                'status': 'ok',
+                'access_token': access_token,
                 'username ': username
                 },201
 

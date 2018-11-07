@@ -37,7 +37,7 @@ class Product(Basemodel):
         return sproduct
         
 
-    def find_stock(product_id):
+    def find_stock(self, product_id):
         self.cursor.execute("""SELECT * FROM products WHERE id='{}' """.format(product_id))
         rows = self.cursor.fetchone()
         return rows

@@ -2,7 +2,7 @@ import unittest
 import json
 import os
 from app import create_app
-from app.api.database import DB
+from app.api.database import init_DB
 # from flask_jwt_extended import create_access_token, 
 
 
@@ -37,11 +37,24 @@ class Test_User_Case(unittest.TestCase):
             "role":True}),content_type='application/json')
 
         login=self.client.post(USERLOGIN_URL,data=json.dumps({"email":"diana@gmail.com",
-                                                              "password":"1234"
-        }),content_type='application/json')
+                                                              "password":"1234"}),
+                                                              content_type='application/json')
         result_login=json.loads(login.data)
         # token = result_login["access_token"]
-        self.assertEqual(result_login, 400)
+        self.assertEqual(result_login, 400) destroy_tables():
+        users = """DROP TABLE IF EXISTS users CASCADE"""
+        products = """DROP TABLE IF EXISTS products CASCADE"""
+        sales = """DROP TABLE IF EXISTS sales CASCADE"""
+        category = """DROP TABLE IF EXISTS category CASCADE"""
+        tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
+        pass
+
+        conn = get_connection(url)
+        cur = conn.cursor()
+        queries = [users, products, sales, category,tokens]
+        for query in queries:
+                cur.execute(query)
+        conn.co
         res = self.client.post(USERLOGIN_URL,
                                headers=dict(Authorization="Bearer " + token), 
                                data=json.dumps(self.register_user),
