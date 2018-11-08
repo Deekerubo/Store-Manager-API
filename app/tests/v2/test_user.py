@@ -1,9 +1,7 @@
 import unittest
 import json
 import os
-from app import create_app
-from app.api.database import init_DB
-# from flask_jwt_extended import create_access_token, 
+from .base_test import UserAuth
 
 
 
@@ -11,111 +9,99 @@ USERSIGNUP_URL = '/api/v2/signup'
 USERLOGIN_URL = '/api/v2/login'
 
 
-class Test_User_Case(unittest.TestCase):
-    def setUp(self):
-        '''Initialize app and define test variables'''
-        self.app = create_app()
-        self.client = self.app.test_client()
-        self.register_user = { "email": "diana@gmail.com", "password":"1kerubo", "role":True}
-        self.register_user1 = { "email": "diana1@gmail.com", "password":"1kerubo", "role":True}
-        self.login_user = { "email": "diana@gmail.com", "password":"1kerubo", "role":True}
-        self.login_user1 = { "email": "diana1@gmail.com", "password":"1kerubo", "role":True}
-        self.register_user_empty_email = { "email": "", "password":"12345678", "role":True}
-        self.register_user_invalid_email = { "email": "test.gmailcom", "password":"12345678", "role":True}
-        self.register_user_empty_password = { "email": "test@gmail.com", "password":"", "role":True}
-        self.register_user_short_password = { "email": "test@gmail.com", "password":"wert", "role":True}
-        self.login_user_empty_email= { "email": "", "password":"12345678", "role":True }
-        self.login_user_empty_password= { "email": "diana@gmail.com", "password":"", "role":True }
+class Test_User_Case(UserAuth):
+    '''Initialize app and define test variables'''
+    signup_data = { "email": "diana@gmail.com", "password":"1kerubo", "role":True}
+    register_user1 = { "email": "diana1@gmail.com", "password":"1kerubo", "role":True}
+    register_user_empty_email = { "email": "", "password":"1kerubo", "role":True}
+    register_user_invalid_email = { "email": "test.gmailcom", "password":"1kerubo", "role":True}
+    register_user_empty_password = { "email": "test@gmail.com", "password":"", "role":True}
+    register_user_short_password = { "email": "test@gmail.com", "password":"1kerubo", "role":True}
+    login_data = { "email": "diana@gmail.com", "password":"1kerubo"}
+    login_user_empty_email= { "email": "", "password":"12345678"}
+    login_user_empty_password= { "email": "diana@gmail.com", "password":""}
 
 
 
     def test_sign_up_success(self):
-        self.client.post('api/v2/signup',data=json.dumps({
-            "name":"diana",
-            "email":"diana@gmail.com",
-            "password":"1234",
-            "role":True}),content_type='application/json')
-
-        login=self.client.post(USERLOGIN_URL,data=json.dumps({"email":"diana@gmail.com",
-                                                              "password":"1234"}),
-                                                              content_type='application/json')
-        result_login=json.loads(login.data)
-        # token = result_login["access_token"]
-        self.assertEqual(result_login, 400) destroy_tables():
-        users = """DROP TABLE IF EXISTS users CASCADE"""
-        products = """DROP TABLE IF EXISTS products CASCADE"""
-        sales = """DROP TABLE IF EXISTS sales CASCADE"""
-        category = """DROP TABLE IF EXISTS category CASCADE"""
-        tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
-        pass
-
-        conn = get_connection(url)
-        cur = conn.cursor()
-        queries = [users, products, sales, category,tokens]
-        for query in queries:
-                cur.execute(query)
-        conn.co
-        res = self.client.post(USERLOGIN_URL,
-                               headers=dict(Authorization="Bearer " + token), 
-                               data=json.dumps(self.register_user),
-                               content_type = 'application/json')
-        print(res.data)
+        '''Tests user signup if successful'''
+        res = self.app.post(USERSIGNUP_URL,
+                            data=json.dumps(self.signup_data),
+                            content_type='application/json')
         data = json.loads(res.data.decode())
-        # self.assertTrue(data['access_token'])
-        self.assertEqual(res.status_code, 201)
+        self.assertEqual(data['message'], 'Store successfully created')
+        self.assertEqual(res.status_code, 201)        
 
     def test_sign_up_empty_email(self):
-        res = self.client.post(USERSIGNUP_URL,
-                               headers=dict(Authorization="Bearer " + token),
+        '''Test signup with an emptry email address'''
+        res = self.app.post(USERSIGNUP_URL,
                                data=json.dumps(self.register_user_empty_email),
                                content_type='application/json')
         data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'Email cannot be empty')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_invalid_email(self):
-        res = self.client.post(USERSIGNUP_URL,
-                               headers=dict(Authorization="Bearer " + token), 
+        '''Test signup with an invalid email address'''
+        res = self.app.post(USERSIGNUP_URL,
                                data=json.dumps(self.register_user_invalid_email),
                                content_type='application/json')
         data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'Invalid Email')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_empty_password(self):
-        res = self.client.post(USERSIGNUP_URL,
-                               headers=dict(Authorization="Bearer " + token), 
+        '''Test signup with an empty password'''
+        res = self.app.post(USERSIGNUP_URL,
                                data=json.dumps(self.register_user_empty_password),
                                content_type='application/json')
         data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'Empty password')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_short_password(self):
-        res = self.client.post(USERSIGNUP_URL,
-                               headers=dict(Authorization="Bearer " + token), 
+        '''Test signup with a short password'''
+        res = self.app.post(USERSIGNUP_URL,
                                data=json.dumps(self.register_user_short_password),
                                content_type='application/json')
         data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'password should be more than 6 characters')
         self.assertEqual(res.status_code, 400)
 
     def test_user_login(self):
-        res = self.client.post(USERSIGNUP_URL, 
-                               data=json.dumps(self.register_user1),
+        '''Test login success'''
+        self.app.post(USERSIGNUP_URL, 
+                               data=json.dumps(self.signup_data),
                                content_type = 'application/json')
-        data = json.loads(res.data.decode())
-        self.assertEqual(res.status_code, 400)
-
-        res = self.client.post(USERLOGIN_URL,
-                            #    headers=dict(Authorization="Bearer " + token),
-                               data=json.dumps(self.login_user1),
+        res = self.app.post(USERLOGIN_URL,
+                               data=json.dumps(self.login_data),
                                content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertTrue(data, 200)
+        self.assertTrue(data['message'],'User Login successful')
         self.assertEqual(res.status_code, 200)
 
     
     def test_login_empty_email(self):
-        res_login = self.client.post(USERLOGIN_URL,
-                                     headers=dict(Authorization="Bearer " + token), 
+        '''Test login with an empty email'''
+        self.app.post(USERSIGNUP_URL, 
+                               data=json.dumps(self.signup_data),
+                               content_type = 'application/json')
+        res = self.app.post(USERLOGIN_URL,
                                      data=json.dumps(self.login_user_empty_email),
                                      content_type='application/json')
-        data = json.loads(res_login.data.decode())
-        self.assertEqual(res_login.status_code, 400)
+        data = json.loads(res.data.decode())
+        self.assertTrue(data['message'],'Invalid Credentials')
+        self.assertEqual(res.status_code, 400)
+
+    def test_login_empty_password(self):
+        '''Test login with an empty password'''
+        self.app.post(USERSIGNUP_URL, 
+                               data=json.dumps(self.signup_data),
+                               content_type = 'application/json')
+        res = self.app.post(USERLOGIN_URL,
+                                     data=json.dumps(self.login_user_empty_password),
+                                     content_type='application/json')
+        data = json.loads(res.data.decode())
+        self.assertTrue(data['message'],'Invalid Credentials')
+        self.assertEqual(res.status_code, 400)
+

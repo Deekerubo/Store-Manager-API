@@ -10,9 +10,9 @@ from app.api.database import create_tables
 # from app.api.v2.models.user_models import blacklist
 
 
-def create_app():
+def create_app(config_name):
     app =Flask(__name__, instance_relative_config=True)
-    # app.config.from_object(app_config[config_name])
+    app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.config["JWT_SECRET_KEY"] = "SECRET"
     # app.config['JWT_BLACKLIST_ENABLED'] = True

@@ -7,35 +7,29 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from .basemodel import Basemodel
 
 
-# env =os.environ['ENV']
-# if env is 'testing':
-#     url=os.getenv("DATABASE_TEST")
-# elif env is 'development':
 url=os.getenv('DATABASE_URL')
 
 
-class User():
-    
-    def __init__(self):
-        url=os.getenv('DATABASE_URL')
-        self.conn=psycopg2.connect(url)
-        self.cursor=self.conn.cursor()
+class User(Basemodel):
+    # def __init__(self):
+    #     url=os.getenv('DATABASE_URL')
+    #     self.conn=psycopg2.connect(url)
+    #     self.cursor=self.conn.cursor()
         
     def save_user(self,username,email,password,role=False):
         """ save a new user """
-        try:
-            self.cursor.execute(
-                """
-                INSERT INTO users(username, email, password,role)
-                VALUES(%s,%s,%s,%s)""",
-                (self.username, self.email,self.password,self.role))
-            self.conn.commit()            
+
+        signup ="""INSERT INTO users(username, email, password,role)
+                VALUES(%s,%s,%s,%s)""" % (username, email,password,role)
+
+        self.cursor.execute(signup)
+        self.conn.commit()            
                        
-            return 'attendant registered succesful'
+            # return 'attendant registered succesful'
         
-        except Exception as e:
-            print(e)
-            return ("ran into trouble registering you")
+        # except Exception as e:
+        #     print(e)
+        #     return ("ran into trouble registering you")
 
 
     def fetch_single_user(self, email):

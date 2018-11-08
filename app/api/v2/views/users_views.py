@@ -45,11 +45,11 @@ class UserRegistration(Resource):
         
         try:
             result = user_object.save_user(username,email,generate_password_hash(raw_password),role)
-            access_token = create_access_token(identity = username)
+            # access_token = create_access_token(identity = username)
             return {
                 'message': 'Store attendant was created succesfully',
                 'status': 'ok',
-                'access_token': access_token,
+                # 'access_token': access_token,
                 'username ': username
                 },201
 

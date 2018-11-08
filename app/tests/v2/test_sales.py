@@ -3,12 +3,13 @@ import os
 import json
 
 from app import create_app
-from app.api.database import DB
+from app.api.database import init_DB
 
 #URLs
 ADD_ORDER_URL = '/api/v2/sales'
 GET_SINGLE_ORDER = '/api/v2/sales/1'
 GET_ALL_ORDERS = '/api/v2/sales'
+
 
 
 class Test_Order_Case(unittest.TestCase):
@@ -25,17 +26,17 @@ class Test_Order_Case(unittest.TestCase):
                                   "quantity": "",
                                   "price": "",
                                  }
- 
+    
     def test_add_order(self):
         '''Test for sales '''
-        self.client.post('api/v2/signup',data=json.dumps({
-            "name":"charity",
-            "email":"charity@gmail.com",
+        self.client.post(USERSIGNUP_URL,data=json.dumps({
+            "name":"diana",
+            "email":"diana@gmail.com",
             "role":True,
             "password":"1234"
 
         }),content_type='application/json')
-        login=self.client.post(USERLOGIN,data=json.dumps({"email":"charity@gmail.com",
+        login=self.client.post(USERLOGIN_URL,data=json.dumps({"email":"diana@gmail.com",
         "password":"1234"
         }),content_type='application/json')
         result_login=json.loads(login.data)
@@ -59,7 +60,9 @@ class Test_Order_Case(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
         '''return a single order from the order records'''
-        response = self.client.get(GET_SINGLE_ORDER,
+        result_login=json.loads(login.data)
+        token=result_login['access_token'
+        response = self.app.get(GET_SINGLE_ORDER,
                                     headers=dict(Authorization="Bearer " + token),
                                     data = json.dumps(self.orders_item),
                                     content_type = 'application/json')
