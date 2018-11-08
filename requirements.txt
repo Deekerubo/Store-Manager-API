@@ -2,7 +2,6 @@ aniso8601==4.0.1
 astroid==2.0.4
 atomicwrites==1.2.1
 attrs==18.2.0
-Blueprints==2.3.0.2
 Click==7.0
 Flask==1.0.2
 Flask-API==1.0
@@ -22,10 +21,10 @@ psycopg2-binary==2.7.5
 py==1.7.0
 PyJWT==1.6.4
 pylint==2.1.1
-pytest==3.9.3
+pytest==3.10.0
+python-dotenv==0.9.1
 pytz==2018.7
 six==1.11.0
 typed-ast==1.1.0
 Werkzeug==0.14.1
 wrapt==1.10.11
-yapf==0.24.0

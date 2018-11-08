@@ -12,13 +12,12 @@ url=os.getenv('DATABASE_URL')
 
 class User(Basemodel):
         
-    def save_user(self,username,email,password,role=False):
+    def save_user(self,username,email,password,role=True):
         """ save a new user """
-
+        print(username, email, password, role)
         signup ="""INSERT INTO users(username, email, password,role)
-                VALUES(%s,%s,%s,%s)""" % (username, email,password,role)
-
-        self.cursor.execute(signup)
+                VALUES(%s,%s,%s,%s)"""
+        self.cursor.execute(signup, (username, email, password, role))
         self.conn.commit()            
                        
 
@@ -32,7 +31,9 @@ class User(Basemodel):
     
     def find_by_email(self,email):
         '''Checks if the email created exists'''
+        print (email)
         self.cursor.execute("""SELECT * FROM users WHERE email='{}'""".format(email))
+
         rows = self.cursor.fetchone()
         return rows
 

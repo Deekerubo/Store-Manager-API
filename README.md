@@ -56,3 +56,5 @@ POST /sales | Create a sale order|
 
 export ENV="development"
 export ENV='testing'
+
+python -m pytest --cov=app/api/v2
