@@ -3,7 +3,6 @@ import os
 import json
 from app import create_app
 from .base_test import UserAuth
-# from app.api.database import destroy_tables
 
 ADD_ENTRY_URL = '/api/v2/products'
 GET_SINGLE_ENTRY = '/api/v2/products/1'
@@ -17,7 +16,7 @@ class Test_Entry_Case(UserAuth):
                             "price": 23,
                             "category":"category"
                         }
-        
+    
 
     def test_add_entry(self):
         '''Test to add a new product'''

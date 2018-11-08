@@ -14,15 +14,14 @@ parser.add_argument('role',  type=bool)
   
 user_object=User()
 class UserRegistration(Resource):
-    @jwt_required
     def post(self):
         '''Remove all white spaces'''
         
         args =  parser.parse_args()
-        raw_password = args.get('password')
-        email = args.get('email')
-        username = args.get('username')
-        role = args.get('role')
+        raw_password = args.get('password').strip()
+        email = args.get('email').strip()
+        username = args.get('username').strip()
+        role = args.get('role').strip()
 
         '''Validation checks for input'''
         email_format = re.compile(

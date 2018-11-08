@@ -11,10 +11,6 @@ url=os.getenv('DATABASE_URL')
 
 
 class User(Basemodel):
-    # def __init__(self):
-    #     url=os.getenv('DATABASE_URL')
-    #     self.conn=psycopg2.connect(url)
-    #     self.cursor=self.conn.cursor()
         
     def save_user(self,username,email,password,role=False):
         """ save a new user """
@@ -25,16 +21,10 @@ class User(Basemodel):
         self.cursor.execute(signup)
         self.conn.commit()            
                        
-            # return 'attendant registered succesful'
-        
-        # except Exception as e:
-        #     print(e)
-        #     return ("ran into trouble registering you")
-
 
     def fetch_single_user(self, email):
         '''checks if the username exists'''
-        self.self.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
+        self.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         user = self.cursor.fetchone()
 
         return user

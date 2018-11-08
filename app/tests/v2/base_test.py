@@ -31,6 +31,7 @@ class UserAuth(unittest.TestCase):
         app.testing = True
         self.app = app.test_client()
         create_tables()
+        
     def Auth(self):
         self.app.post(USERSIGNUP_URL,
                       data=json.dumps(self.signup_data),

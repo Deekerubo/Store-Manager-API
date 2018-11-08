@@ -1,7 +1,10 @@
 """app/api/v2/models.py contains models for the app"""
 import psycopg2.extras
+import os
 from psycopg2 import sql
 from .basemodel import Basemodel
+
+url=os.getenv('DATABASE_URL')
 
 class Product(Basemodel):
     '''Add new entry'''
@@ -9,15 +12,16 @@ class Product(Basemodel):
     def add_entry(self,name, description, quantity, price, category):
         '''Adds new entries'''                                                   
         product = """INSERT INTO
-                 products (product_name, product_description, quantity, price, category)
-                VALUES('%s','%s','%s','%s','%s')""" % (name, description, quantity, price, category)
+                  products (product_name, product_description, quantity, price, category)
+                  VALUES('%s','%s','%s','%s','%s')""" % (name, description, quantity, price, category)
           
 
         self.cursor.execute(product)
         self.conn.commit()
 
-                
-        
+        return dict(message=name + ", Posted!", status_code=201)
+
+            
     def find_product_name(self, name):
         '''Get a product by item name''' 
         self.cursor.execute("""SELECT * FROM products WHERE product_name='{}'; """.format(name))
