@@ -8,7 +8,7 @@ from app.api.v2.models.sales_models import Sale
 
 sales_object = Sale()
 class Sales(Resource):
-    # @jwt_required
+    @jwt_required
     def post(self):
         '''Create a  sale  order'''
         data = request.get_json()
@@ -34,7 +34,7 @@ class Sales(Resource):
    
 
         
-    # @jwt_required 
+    @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
         sales = sales_object.all_orders()
@@ -43,18 +43,21 @@ class Sales(Resource):
 
 
 class SingleOrder(Resource):
-    # @jwt_required
+    @jwt_required
     def get(self, id):
         ssale = Sale.single_order(self,id)
         if ssale is None:
             return{'message':'sale not found'}
         return ssale
         
-    # @jwt_required
+    @jwt_required
     def delete(self, id):
         dele = Sale.delete_order(self, id)
+        if dele is None:
+            return{'messsage':'sale not found'}
         return {'message':'sale succesfully deleted'},200
-
+        
+    @jwt_required
     def put (self, id):
             data = request.get_json()
             sales_items = data.get('sales_items')
@@ -63,11 +66,11 @@ class SingleOrder(Resource):
             
 
             sale= sales_object.single_order(id)
-            if not name:
+            if not sales_items:
                 sales_items=sale['sales_items']
             if not quantity:
-                quantity=product['quantity']
+                quantity=sale['quantity']
             if not price:
-                price=product['price']
-            sales_object.modify_items(id,sales_items, quantity,price)
+                price=sale['price']
+            sales_object.modify_items(id,sales_items,quantity,price)
             return {'message':'Sale updated succesfully'}, 200

@@ -8,8 +8,9 @@ from flask_jwt_extended import jwt_required
 from app.api.v2.models.product_models import Product
 
 product_object=Product()
+
 class Products(Resource):
-    # @jwt_required
+    @jwt_required
     def post(self):
         '''Create a new product'''
         data = request.get_json()
@@ -39,7 +40,7 @@ class Products(Resource):
         product1 = product_object.find_product_name(name)
         return {"message":"sucess!","product":product1}
         
-    # @jwt_required
+    @jwt_required
     def get(self):
         '''Get all products'''
         products = product_object.all_products()
@@ -47,19 +48,19 @@ class Products(Resource):
 
 
 class ProductDetails(Resource):
-    # @jwt_required
+    @jwt_required
     def get(self,id):
         prod = product_object.single_product(id)
         if prod is None:
             return{'message':'product not found'}   
         return prod
     
-    # @jwt_required
+    @jwt_required
     def delete(self, id):
         dele = product_object.delete_product(id)
         return {'message':'product succesfully deleted'}
 
-    
+    @jwt_required
     def put (self, id):
         data = request.get_json()
         name = data.get('product_name')

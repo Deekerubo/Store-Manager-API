@@ -18,6 +18,7 @@ class UserRegistration(Resource):
         '''Remove all white spaces'''
         
         args =  parser.parse_args()
+
         raw_password = args.get('password').strip()
         email = args.get('email')
         username = args.get('username').strip()
@@ -30,7 +31,7 @@ class UserRegistration(Resource):
         if not username:
             return make_response(jsonify({'message':'username cannot be empty'}), 400)
         if not email:
-            return make_response(jsonify({'message': 'email can not be empty'}),400)
+            return make_response(jsonify({'message': 'email cannot be empty'}),400)
         if not raw_password:
             return make_response(jsonify({'message': 'password cannot be empty'}),400)
         if len(raw_password) < 6:
@@ -44,13 +45,11 @@ class UserRegistration(Resource):
         if this_user:
             return {'message': 'email already exist'}, 400 
         
-    
         try:
             result = user.save_user(username, email, raw_password, role=True)
             return {
                 'message': 'Store attendant was created succesfully',
                 'status': 'ok',
-                'username': username
                 },201
 
         except Exception as e:
@@ -69,9 +68,7 @@ class UserLogin(Resource):
             return {'message': 'password cannot be empty'},400
         
         '''On successful login'''
-       
         check_user = user.find_by_email(email)
-        print(check_user)
         if check_user is None:
             return {'message': 'invalid credentials'},400
 

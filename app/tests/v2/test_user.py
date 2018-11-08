@@ -4,22 +4,22 @@ import os
 from .base_test import UserAuth
 
 
-
 USERSIGNUP_URL = '/api/v2/signup'
 USERLOGIN_URL = '/api/v2/login'
 
 
 class Test_User_Case(UserAuth):
     '''Initialize app and define test variables'''
-    signup_data = { "email": "diana@gmail.com", "password":"1kerubo", "role":True}
+ 
+    signup_data = { "email": "kerubo2@gmail.com", "username":"Diana", "password":"1kerubo", "role":True}
     register_user1 = { "email": "diana1@gmail.com", "password":"1kerubo", "role":True}
-    register_user_empty_email = { "email": "", "password":"1kerubo", "role":True}
-    register_user_invalid_email = { "email": "test.gmailcom", "password":"1kerubo", "role":True}
-    register_user_empty_password = { "email": "test@gmail.com", "password":"", "role":True}
-    register_user_short_password = { "email": "test@gmail.com", "password":"1kerubo", "role":True}
-    login_data = { "email": "diana@gmail.com", "password":"1kerubo"}
+    register_user_empty_email = { "email": "", "username":"Diana", "password":"1kerubo", "role":True}
+    register_user_invalid_email = { "email": "test.gmailcom", "username":"Diana", "password":"1kerubo", "role":True}
+    register_user_empty_password = { "email": "test@gmail.com", "username":"Diana", "password":"", "role":True}
+    register_user_short_password = { "email": "test@gmail.com","username":"Diana", "password":"erubo", "role":True}
+    login_data = { "email": "kerubo2@gmail.com", "password":"1kerubo"}
     login_user_empty_email= { "email": "", "password":"12345678"}
-    login_user_empty_password= { "email": "diana@gmail.com", "password":""}
+    login_user_empty_password= { "email": "diana@gmail.com", "password":""} 
 
 
 
@@ -29,7 +29,8 @@ class Test_User_Case(UserAuth):
                             data=json.dumps(self.signup_data),
                             content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertEqual(data['message'], 'Store successfully created')
+        self.assertEqual(data['message'], 'Store attendant was created succesfully')
+        self.assertEqual(data["status"], "ok")
         self.assertEqual(res.status_code, 201)        
 
     def test_sign_up_empty_email(self):
@@ -38,7 +39,7 @@ class Test_User_Case(UserAuth):
                                data=json.dumps(self.register_user_empty_email),
                                content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertEqual(data['message'], 'Email cannot be empty')
+        self.assertEqual(data['message'], 'email cannot be empty')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_invalid_email(self):
@@ -47,7 +48,7 @@ class Test_User_Case(UserAuth):
                                data=json.dumps(self.register_user_invalid_email),
                                content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertEqual(data['message'], 'Invalid Email')
+        self.assertEqual(data['message'], 'Invalid email')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_empty_password(self):
@@ -56,7 +57,7 @@ class Test_User_Case(UserAuth):
                                data=json.dumps(self.register_user_empty_password),
                                content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertEqual(data['message'], 'Empty password')
+        self.assertEqual(data['message'], 'password cannot be empty')
         self.assertEqual(res.status_code, 400)
 
     def test_sign_up_short_password(self):
@@ -65,7 +66,7 @@ class Test_User_Case(UserAuth):
                                data=json.dumps(self.register_user_short_password),
                                content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertEqual(data['message'], 'password should be more than 6 characters')
+        self.assertEqual(data['message'], 'Password should be atleast 6 characters')
         self.assertEqual(res.status_code, 400)
 
     def test_user_login(self):
@@ -78,7 +79,7 @@ class Test_User_Case(UserAuth):
                                content_type='application/json')
         data = json.loads(res.data.decode())
         self.assertTrue(data['message'],'User Login successful')
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 201)
 
     
     def test_login_empty_email(self):
@@ -102,6 +103,7 @@ class Test_User_Case(UserAuth):
                                      data=json.dumps(self.login_user_empty_password),
                                      content_type='application/json')
         data = json.loads(res.data.decode())
-        self.assertTrue(data['message'],'Invalid Credentials')
+       
+        self.assertTrue(data['message'],'password cannot be empty')
         self.assertEqual(res.status_code, 400)
 

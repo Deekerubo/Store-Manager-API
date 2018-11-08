@@ -1,21 +1,37 @@
 # #Cretate a Database connection
-import psycopg2
 import os
+import psycopg2
+from urllib.parse import urlparse
 
-url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
 
-db_url=os.getenv('DATABASE_URL')
+# url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
 
-def get_connection(url):
-        con=psycopg2.connect(url)
-        return con
+# db_url=os.getenv('DATABASE_URL')
+# db = os.getenv('DATABASE_TEST')
+
+
+def get_connection():
+        # db_uri = "pgsql://postgres:nyambumo@localhost/store_manager_tests"        
+        # result = urlparse(db_uri)
+
+        # host = result.hostname
+        # role = result.username
+        # pwd = result.password
+        # database = result.path[1:]    
+        return psycopg2.connect(database="store_manager_tests", 
+                                user="postgres", 
+                                password="nyambumo",
+                                host="localhost",
+                                port="5432")
 
 def init_DB():
-        con = get_connection(url)
+        con = get_connection()
+        print(con)
         return con
 
+
 def create_tables():
-        conn = get_connection(url)
+        conn = get_connection()
         cur = conn.cursor()
         queries = tables()
         for query in queries:
@@ -28,9 +44,9 @@ def destroy_tables():
         sales = """DROP TABLE IF EXISTS sales CASCADE"""
         category = """DROP TABLE IF EXISTS category CASCADE"""
         tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
-        pass
+        
 
-        conn = get_connection(url)
+        conn = get_connection()
         cur = conn.cursor()
         queries = [users, products, sales, category,tokens]
         for query in queries:
