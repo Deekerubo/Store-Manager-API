@@ -15,11 +15,7 @@ script:
   - export APP_SETTINGS="development"
   - export SECRET="SECRET"
   - export  ENV="testing"
-  - pytest --cov-report term-missing --cov=app
-
-  - coveralls
-
-  - pytest --cov=app
+  - py.test --cov=app app/tests/v2
 
 after_success:
-   - "coveralls"
+   - coveralls
