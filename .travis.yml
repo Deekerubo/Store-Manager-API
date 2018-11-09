@@ -10,8 +10,6 @@ services:
   - postgresql
 
 before_script:
-- psql -c "create database store_manager_tests;" -U postgres
-
 - psql -c "create user postgres WITH PASSWORD 'nyambumo';" -U postgres
 
 script:
