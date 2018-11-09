@@ -4,6 +4,7 @@ from flask_restful import Api
 from instance.config import app_config
 from .api.v1 import version1 as cart_BP
 from .api.v2 import version2 as BD_cart
+from flask_cors import CORS
 # from app.api.database import create_tables
 from flask_jwt_extended import JWTManager
 from app.api.database import create_tables, destroy_tables
@@ -12,6 +13,7 @@ from app.api.database import create_tables, destroy_tables
 
 def create_app(config_name):
     app =Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.config["JWT_SECRET_KEY"] = "SECRET"
