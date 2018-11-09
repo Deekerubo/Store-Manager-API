@@ -5,7 +5,7 @@ from .views.product_views import Product, SingleProduct
 from .views.sales_views import NewOrder, SingleOrder
 from .views.users_views import UserRegistration, UserLogin
 
-version1 = Blueprint('api', __name__, url_prefix='/api/v1', template_folder = 'templates')
+version1 = Blueprint('api-v1', __name__, url_prefix='/api/v1', template_folder = 'templates')
 api = Api(version1)
 
 

@@ -5,7 +5,23 @@ python:
 
 install:
   - pip install -r requirements.txt
+
+services:
+  - postgresql
+
+before_script:
+- psql -c "create database store_manager;" -U postgres
+
+- psql -c "create user postgres WITH PASSWORD 'nyambumo';" -U postgres
+
 script:
+  - export APP_SETTINGS="testing"
+  - export SECRET="SECRET"
+  - export Test_URL="dbname=store_manager_tests user=postgres password=nyambumo"
+  - pytest --cov-report term-missing --cov=app
+
+  - coveralls
+
   - pytest --cov=app
 
 after_success:

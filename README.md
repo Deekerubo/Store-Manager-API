@@ -35,6 +35,8 @@ Install all the requirements
     $ pip install -r requirements.txt
 ```
 
+Run my version 2 test
+`python -m pytest --cov=app/tests/v2'
 
 #Endpoints
 
@@ -52,3 +54,7 @@ POST /products | Create a product|
 ---------------|-----------|
 POST /sales | Create a sale order|
 
+export ENV="development"
+export ENV='testing'
+
+python -m pytest --cov=app/api/v2
