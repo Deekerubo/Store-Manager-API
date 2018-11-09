@@ -10,11 +10,11 @@ services:
   - postgresql
 
 before_script:
-- sudo -u postgres psql
+  - psql -c "create database store_manager_tests;" -U postgres
 script:
   - export APP_SETTINGS="development"
   - export SECRET="SECRET"
-  - export DATABASE_URL="dbname=store_manager user=postgres password=nyambumo"
+  - export  ENV="testing"
   - pytest --cov-report term-missing --cov=app
 
   - coveralls

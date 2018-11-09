@@ -10,7 +10,6 @@ GET_SINGLE_ORDER = '/api/v2/sales/1'
 GET_ALL_ORDERS = '/api/v2/sales'
 
 
-
 class Test_Order_Case(UserAuth):
     '''Initialize app and define test variables'''
     orders_item = { "sales_item": "name",
