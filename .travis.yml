@@ -13,9 +13,9 @@ before_script:
 - psql -c "create user postgres WITH PASSWORD 'nyambumo';" -U postgres
 
 script:
-  - export APP_SETTINGS="testing"
+  - export APP_SETTINGS="development"
   - export SECRET="SECRET"
-  - export Test_URL="dbname=store_manager_tests user=postgres password=nyambumo"
+  - export DATABASE_URL="dbname=store_manager user=postgres password=nyambumo"
   - pytest --cov-report term-missing --cov=app
 
   - coveralls
