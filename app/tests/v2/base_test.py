@@ -3,7 +3,6 @@ import os
 import json
 import unittest
 
-#local imports
 from app import create_app
 from app.api.database import create_tables, destroy_tables
 
@@ -11,7 +10,6 @@ from app.api.database import create_tables, destroy_tables
 USERLOGIN_URL = 'api/v2/login'
 USERSIGNUP_URL = 'api/v2/signup'
 
-#config_name = 'testing'
 app = create_app(os.getenv('ENV'))
 
 class UserAuth(unittest.TestCase):

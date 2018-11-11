@@ -29,8 +29,8 @@ def create_app(config_name):
     #     url=os.getenv("DATABASE_TEST")
     # elif env=='development':
     #     url=os.getenv('DATABASE_URL')
-    destroy_tables()
-    # create_tables()
+    # destroy_tables()
+    create_tables()
 
     '''Register my blueprints'''
     app.register_blueprint(cart_BP)

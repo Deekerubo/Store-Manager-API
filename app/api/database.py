@@ -3,21 +3,7 @@ import os
 import psycopg2
 from urllib.parse import urlparse
 
-
-# url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
-
-# db_url=os.getenv('DATABASE_URL')
-# db = os.getenv('DATABASE_TEST')
-
-
 def get_connection():
-        # db_uri = "pgsql://postgres:nyambumo@localhost/store_manager_tests"        
-        # result = urlparse(db_uri)
-
-        # host = result.hostname
-        # role = result.username
-        # pwd = result.password
-        # database = result.path[1:]    
         return psycopg2.connect(database=os.getenv('DATABASE'), 
                                 user="afhewnyxybwlub", 
                                 password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
