@@ -36,6 +36,12 @@ class User(Basemodel):
         rows = self.cursor.fetchone()
         return rows
 
+    def find_by_email_and_password(self, email, password):
+        '''Checks if the user credential are okay'''
+        self.cursor.execute("""SELECT * FROM users WHERE email AND password='{}'""".format(email))
+        rows = self.cursor.fetchone()
+        return rows
+
     # def logout_user(self):
     #     """Logout user by blacklisting token"""
     #     token = get_raw_jwt()['jti']
