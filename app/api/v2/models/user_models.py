@@ -30,14 +30,12 @@ class User(Basemodel):
     
     
     def find_by_email(self,email):
-        try:
-            '''Checks if the email created exists'''
-            self.cursor.execute("""SELECT * FROM users WHERE email='{}'""".format(email))
+        '''Checks if the email created exists'''
+        self.cursor.execute("""SELECT * FROM users WHERE email='{}'""".format(email))
 
-            rows = self.cursor.fetchone()
-            return rows
-        except:
-            pass
+        rows = self.cursor.fetchone()
+        return rows
+
     # def logout_user(self):
     #     """Logout user by blacklisting token"""
     #     token = get_raw_jwt()['jti']
