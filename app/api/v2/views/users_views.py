@@ -67,7 +67,7 @@ class UserLogin(Resource):
             return {'message': 'password cannot be empty'},400
         
         '''On successful login'''
-        check_user = user.find_by_email_and_password(email)
+        check_user = user.find_by_email_and_password(email, password)
         if check_user is None:
             return {'message': 'invalid credentials'},400
 
