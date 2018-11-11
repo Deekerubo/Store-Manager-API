@@ -52,8 +52,7 @@ class UserRegistration(Resource):
                 'status': 'ok',
                 },201
 
-        except Exception as e:
-            # print(e)
+        except:
             return {'message': 'Something went wrong'}, 500    
 
 class UserLogin(Resource):
