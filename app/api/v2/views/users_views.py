@@ -46,7 +46,7 @@ class UserRegistration(Resource):
             return {'message': 'email already exist'}, 400 
         
         try:
-            result = user.save_user(username, email, raw_password, role=True)
+            user.save_user(username, email, raw_password, role=True)
             return {
                 'message': 'Store attendant was created succesfully',
                 'status': 'ok',
