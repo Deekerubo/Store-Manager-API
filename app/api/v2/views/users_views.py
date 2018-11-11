@@ -52,9 +52,9 @@ class UserRegistration(Resource):
                 'status': 'ok',
                 },201
 
-        except Exception as e:
-            print(e)
-            return {'message': 'Something went wrong'}, 500    
+        except:
+            # print(e)
+            return pass   
 
 class UserLogin(Resource):
     def post(self):

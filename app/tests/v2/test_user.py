@@ -23,15 +23,15 @@ class Test_User_Case(UserAuth):
 
 
 
-    # def test_sign_up_success(self):
-    #     '''Tests user signup if successful'''
-    #     res = self.app.post(USERSIGNUP_URL,
-    #                         data=json.dumps(self.signup_data),
-    #                         content_type='application/json')
-    #     data = json.loads(res.data.decode())
-    #     self.assertEqual(data['message'], 'Store attendant was created succesfully')
-    #     self.assertEqual(data["status"], "ok")
-    #     self.assertEqual(res.status_code, 201)        
+    def test_sign_up_success(self):
+        '''Tests user signup if successful'''
+        res = self.app.post(USERSIGNUP_URL,
+                            data=json.dumps(self.signup_data),
+                            content_type='application/json')
+        data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'Store attendant was created succesfully')
+        self.assertEqual(data["status"], "ok")
+        self.assertEqual(res.status_code, 201)        
 
     def test_sign_up_empty_email(self):
         '''Test signup with an emptry email address'''

@@ -18,10 +18,10 @@ def get_connection():
         # role = result.username
         # pwd = result.password
         # database = result.path[1:]    
-        return psycopg2.connect(database="store_manager_tests", 
-                                user="postgres", 
-                                password="nyambumo",
-                                host="localhost",
+        return psycopg2.connect(database=os.getenv('DATABASE'), 
+                                user="afhewnyxybwlub", 
+                                password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
+                                host="ec2-54-83-38-174.compute-1.amazonaws.com",
                                 port="5432")
 
 def init_DB():
