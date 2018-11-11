@@ -36,6 +36,16 @@ class User(Basemodel):
         rows = self.cursor.fetchone()
         return rows
 
+    def verify_hash(self, password, email):
+        '''Checks password against struggel'''
+        self.cursor.execute("""SELECT* FROM users WHERE password='{}'.formart(password, email)""")
+        hash = self.cursor.fetchone()
+        return hash
+        #  user = next((item for item in users_list if item["email"] == email), False)
+        #  if user == False:
+        #      return False
+        #  return sha256.verify(password, user['password'] )
+
     # def logout_user(self):
     #     """Logout user by blacklisting token"""
     #     token = get_raw_jwt()['jti']

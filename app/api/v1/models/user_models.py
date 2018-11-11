@@ -42,10 +42,3 @@ class User():
     @staticmethod
     def find_by_email(email):
         return next((item for item in users_list if item["email"] == email), False)
-
-    @staticmethod
-    def verify_hash(password,email):
-         user = next((item for item in users_list if item["email"] == email), False)
-         if user == False:
-             return False
-         return sha256.verify(password, user['password'] )
