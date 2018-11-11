@@ -72,13 +72,11 @@ class UserLogin(Resource):
             return {'message': 'invalid credentials'},400
 
         '''This generates the access token'''
-        if user.verify_hash(password, email) == True:
-            access_token = create_access_token(identity =  email)
-            return{'mesage': f'Logged in as {current_user["email"]}',
-                        'access_token': access_token,
-                    },200
-        return {'message':'wrong credentials'},400
-
+        access_token = create_access_token(identity =  email)
+        return {
+                'message': 'User was logged in succesfully',
+                'access_token': access_token
+                },201
     
 # class Logout(Resource):
 #     '''Logout a user'''
