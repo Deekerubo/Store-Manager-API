@@ -14,14 +14,11 @@ class User(Basemodel):
         
     def save_user(self,username,email,password,role=True):
         """ save a new user """
-        try:
-            print(username, email, password, role)
-            signup ="""INSERT INTO users(username, email, password,role)
-                    VALUES(%s,%s,%s,%s)"""
-            self.cursor.execute(signup, (username, email, password, role))
-            self.conn.commit()
-        except:
-            pass         
+        print(username, email, password, role)
+        signup ="""INSERT INTO users(username, email, password,role)
+                VALUES(%s,%s,%s,%s)"""
+        self.cursor.execute(signup, (username, email, password, role))
+        self.conn.commit()            
                        
 
     def fetch_single_user(self, email):
