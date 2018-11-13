@@ -12,9 +12,10 @@ services:
 before_script:
   - psql -c "create database store_manager_tests;" -U postgres
 script:
+  - source .env
   - export APP_SETTINGS="testing"
   - export SECRET="SECRET"
-  - export  FLAS_ENV="testing"
+  - export  FLASk_ENV="testing"
   - py.test --cov=app app/tests/v2
 
 after_success:
