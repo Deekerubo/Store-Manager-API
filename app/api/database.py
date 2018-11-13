@@ -1,4 +1,4 @@
-# #Cretate a Database connection
+# #Create a Database connection
 import os
 import psycopg2
 from urllib.parse import urlparse
@@ -9,30 +9,21 @@ test_url = "dbname='store_manager_tests' host='localhost' port='5432' user='post
 
 
 config= os.getenv('APP_SETTINGS')
-# try:
-#     if config == 'development':
-#         conn = psycopg2.connect(dev_url)
-#     if config == 'testing':
-#         conn = psycopg2.connect(test_url)
-#     if config == 'production':
-#         conn = psycopg2.connect(production_url)
-# except BaseException:
-#     print("Database is not connected.")
     
-def get_connection():
-    if config == 'development':
-        con=psycopg2.connect(dev_url)
-    if config == 'testing':
-        con=psycopg2.connect(test_url)
-    return con
-
-
 # def get_connection():
-#         return psycopg2.connect(database=os.getenv('DATABASE'), 
-#                                 user="afhewnyxybwlub", 
-#                                 password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
-#                                 host="ec2-54-83-38-174.compute-1.amazonaws.com",
-#                                 port="5432")
+#     if config == 'development':
+#         con=psycopg2.connect(dev_url)
+#     if config == 'testing':
+#         con=psycopg2.connect(test_url)
+#     return con
+
+
+def get_connection():
+        return psycopg2.connect(database=os.getenv('DATABASE'), 
+                                user="afhewnyxybwlub", 
+                                password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
+                                host="ec2-54-83-38-174.compute-1.amazonaws.com",
+                                port="5432")
 # export DATABASE="dd3ga69u9o4v1h"
 
 def init_DB():
