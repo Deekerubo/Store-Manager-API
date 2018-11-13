@@ -3,8 +3,8 @@ from psycopg2.extras import RealDictCursor
 import os
 
 
-url=os.getenv('DATABASE_URL')
-
+# url=os.getenv('DATABASE_URL')
+url="dbname=store_manager_tests user=postgres password=nyambumo host=localhost"
 class Basemodel():
     def __init__(self):
         self.conn = psycopg2.connect(url)
