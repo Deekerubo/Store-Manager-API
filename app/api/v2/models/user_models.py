@@ -25,7 +25,6 @@ class User(Basemodel):
         '''checks if the username exists'''
         self.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         user = self.cursor.fetchone()
-
         return user
     
     

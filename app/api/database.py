@@ -3,16 +3,27 @@ import os
 import psycopg2
 from urllib.parse import urlparse
 
+
+dev_url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
+test_url = "dbname='store_manager_tests' host='localhost' port='5432' user='postgres' password='nyambumo'"
+config= os.getenv('APP_SETTINGS')
 def get_connection():
-        return psycopg2.connect(database=os.getenv('DATABASE'), 
-                                user="afhewnyxybwlub", 
-                                password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
-                                host="ec2-54-83-38-174.compute-1.amazonaws.com",
-                                port="5432")
+    if config == 'development':
+        con=psycopg2.connect(dev_url)
+    if config == 'testing':
+        con=psycopg2.connect(test_url)
+    return con
+# def get_connection():
+#         return psycopg2.connect(database=os.getenv('DATABASE'), 
+#                                 user="afhewnyxybwlub", 
+#                                 password="190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1",
+#                                 host="ec2-54-83-38-174.compute-1.amazonaws.com",
+#                                 port="5432")
+# export DATABASE="dd3ga69u9o4v1h"
 
 def init_DB():
         con = get_connection()
-        print(con)
+        # print(con)
         return con
 
 
@@ -38,7 +49,6 @@ def destroy_tables():
         for query in queries:
                 cur.execute(query)
         conn.commit()
-
 
 def tables():
         """Used for creating the tables"""

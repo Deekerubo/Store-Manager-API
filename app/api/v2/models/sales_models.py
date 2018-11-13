@@ -40,6 +40,8 @@ class Sale(Basemodel):
 
     def single_order(self, id):
         '''Return a single Order '''
+        self.conn=psycopg2.connect(url)
+        self.cursor = self.conn.cursor()
         self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
         singlesale = self.cursor.fetchone()
         return singlesale
