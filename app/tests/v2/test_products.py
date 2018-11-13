@@ -11,7 +11,7 @@ GET_ALL_ENTRY = '/api/v2/products'
 
 class Test_Entry_Case(UserAuth):
     '''Initialize app and define test variables'''
-    def setUp2(self):
+    def setUp(self):
         super().setUp()
         destroy_tables()
         create_tables()
