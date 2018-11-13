@@ -18,7 +18,6 @@ class Product(Basemodel):
                   VALUES('%s','%s','%s','%s','%s')""" % (name, description, quantity, price, category)
         self.cursor.execute(product)
         self.conn.commit()
-        # self.conn.close()
 
         return dict(message=name + ", Posted!", status_code=201)
 
@@ -56,6 +55,7 @@ class Product(Basemodel):
         '''Delete a product'''
         self.cursor.execute("""SELECT * FROM  products WHERE id={};""".format(id))
         del1 = self.cursor.fetchone()
+        self.conn.commit()
         if not del1:
             return{'message':'product ID not found'}
         self.cursor.execute("""DELETE FROM  products WHERE id={};""".format(id))

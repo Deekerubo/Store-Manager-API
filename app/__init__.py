@@ -7,8 +7,7 @@ from .api.v2 import version2 as BD_cart
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from app.api.database import create_tables, destroy_tables
-# from app.api.v2.models.user_models import blacklist
-
+from app.api.v2.models.user_models import User
 
 def create_app(config_name):
     app =Flask(__name__, instance_relative_config=True)
@@ -16,18 +15,18 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.config["JWT_SECRET_KEY"] = "SECRET"
-    # app.config['JWT_BLACKLIST_ENABLED'] = True
-    # app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
-    JWTManager(app)
-    # @jwt.token_in_blacklist_loader
-    # def check_if_token_in_blacklist(decrypted_token):
-    #     jti = decrypted_token['jti']
-    #     return jti
-    # env =os.getenv('ENV')
-    # if env=='testing':
-    #     url=os.getenv("DATABASE_TEST")
-    # elif env=='development':
-    #     url=os.getenv('DATABASE_URL')
+    app.config['PROPAGATE_EXCEPTIONS'] = True
+    app.config['JWT_BLACKLIST_ENABLED'] = True
+    app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
+    jwt = JWTManager(app)
+
+
+    @jwt.token_in_blacklist_loader
+    def check_if_token_in_blacklist(decrypted_token):
+        jti = decrypted_token['jti']
+        user = User()
+        return user.check_token(jti)
+    
     create_tables()
     # destroy_tables()
 

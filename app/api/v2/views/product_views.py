@@ -21,19 +21,19 @@ class Products(Resource):
         category = data['category']
 
         if not name:
-            return make_response(jsonify({'message': 'Sale  can not be empty'}),400)
+            return make_response(jsonify({'message': 'Product  can not be empty!'}),400)
         if not description:
-                return make_response(jsonify({'message': 'Sale description  can not be empty'}),400)
+                return make_response(jsonify({'message': 'Product description  can not be empty!'}),400)
         if not category:
-                return make_response(jsonify({'message': 'Sale category  can not be empty'}),400)
+                return make_response(jsonify({'message': 'Product category  can not be empty!'}),400)
         if not isinstance(price, int):
-            return {'message':'price must be integer',
-                    'item': price }
+            return {'message':'Price must be integer!',
+                    'item': price }, 400
         elif not isinstance(quantity, int):
-            return {'message':'quantity must be integer'}
+            return {'message':'Quantity must be integer!'}, 400
         product = product_object.find_product_name(name)
         if product:
-            return {"message":"product item already exists!"},400
+            return {"message":"Product item already exists!"},400
 
         
         product_object.add_entry(name,description,quantity,price,category)
@@ -58,7 +58,7 @@ class ProductDetails(Resource):
     @jwt_required
     def delete(self, id):
         dele = product_object.delete_product(id)
-        return {'message':'product succesfully deleted'}
+        return {'message':'Product Deleted!'}
 
     @jwt_required
     def put (self, id):
@@ -81,6 +81,6 @@ class ProductDetails(Resource):
         if not category:
             category=product['category']
         product_object.modify_items(id,name,description,quantity,price,category)
-        return {'message':'Product updated succesfully'}, 200
+        return {'message':'Product updated succesfully!'}, 200
 
        

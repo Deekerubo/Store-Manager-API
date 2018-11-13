@@ -35,7 +35,6 @@ class Test_User_Case(UserAuth):
         self.assertEqual(data['message'], 'Store attendant was created succesfully')
         self.assertEqual(data["status"], "ok")
         self.assertEqual(res.status_code, 201)   
-        #destroy_tables()   
 
     def test_sign_up_empty_email(self):
         '''Test signup with an emptry email address'''
@@ -45,7 +44,6 @@ class Test_User_Case(UserAuth):
         data = json.loads(res.data.decode())
         self.assertEqual(data['message'], 'email cannot be empty')
         self.assertEqual(res.status_code, 400)
-        # destroy_tables()
 
     def test_sign_up_invalid_email(self):
         '''Test signup with an invalid email address'''
@@ -98,7 +96,6 @@ class Test_User_Case(UserAuth):
         data = json.loads(res.data.decode())
         self.assertTrue(data['message'],'Invalid Credentials')
         self.assertEqual(res.status_code, 400)
-        #destroy_tables()
 
     def test_login_empty_password(self):
         '''Test login with an empty password'''

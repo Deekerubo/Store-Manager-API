@@ -9,7 +9,6 @@ conn= init_DB()
 cursor = conn.cursor()
 
 
-# url=os.getenv('DATABASE_URL')
 
 class Sale(Basemodel):
     def __init__(self):
@@ -28,21 +27,10 @@ class Sale(Basemodel):
            
     def find_sale_name(self, sales_items):
         '''Get a product by item name''' 
-        # self.conn=psycopg2.connect(url)
-        # self.cursor = self.conn.cursor()
         cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
         sales = cursor.fetchone()
         conn.commit()
         return sales
-        # self.conn=psycopg2.connect(url)
-        # self.cursor = self.conn.cursor()
-        # try:
-        #     self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
-        # except Exception as e:
-        #     print(e)
-        # rows = self.cursor.fetchone()
-        # self.conn.commit()       
-        # return rows
 
 
     def all_orders(self):
@@ -55,8 +43,6 @@ class Sale(Basemodel):
 
     def single_order(self,id):
         '''Return a single Order '''
-        # self.conn=psycopg2.connect(url)
-        # self.cursor = self.conn.cursor()
         cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
         singlesale = cursor.fetchone()
         conn.commit()
