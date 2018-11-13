@@ -47,7 +47,7 @@ class User(Basemodel):
         # token = get_raw_jwt()['jti']
         tok= """INSERT INTO tokens(token)
                             VALUES(%s)"""
-        self.cursor.execute(tok,(token))
+        self.cursor.execute(tok,(token,))
         self.conn.commit()
         # add(token)
 
@@ -57,7 +57,7 @@ class User(Basemodel):
         """Logout user by blacklisting token"""
         self.cursor.execute("""SELECT token 
         FROM tokens
-        WHERE token = '{}'""",format(token))
+        WHERE token='{}'""".format(token))
         rows = self.cursor.fetchone()
         self.conn.commit()
 

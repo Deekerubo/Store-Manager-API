@@ -78,7 +78,7 @@ class UserLogin(Resource):
                 'access_token': access_token
                 },201
     
-class Logout(Resource):
+class UserLogout(Resource):
     '''Logout a user'''
     @jwt_required
     def delete(self):
