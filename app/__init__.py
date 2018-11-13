@@ -5,7 +5,6 @@ from instance.config import app_config
 from .api.v1 import version1 as cart_BP
 from .api.v2 import version2 as BD_cart
 from flask_cors import CORS
-# from app.api.database import create_tables
 from flask_jwt_extended import JWTManager
 from app.api.database import create_tables, destroy_tables
 # from app.api.v2.models.user_models import blacklist
@@ -29,8 +28,8 @@ def create_app(config_name):
     #     url=os.getenv("DATABASE_TEST")
     # elif env=='development':
     #     url=os.getenv('DATABASE_URL')
-    destroy_tables()
-    # create_tables()
+    create_tables()
+    # destroy_tables()
 
     '''Register my blueprints'''
     app.register_blueprint(cart_BP)

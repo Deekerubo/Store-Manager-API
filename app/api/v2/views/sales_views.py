@@ -18,7 +18,7 @@ class Sales(Resource):
         price = data['price']
               
         if not sales_items:
-            return make_response(jsonify({'message': 'Sale  can not be empty'}),400)
+            return make_response(jsonify({'message': 'Sales Items Cannot be Empty'}),400)
         if not isinstance(price, int):
             return {'message':'price must be integer'}
         elif not isinstance(quantity, int):
@@ -31,16 +31,13 @@ class Sales(Resource):
         sales_object.add_sale(sales_items,quantity,price)
         sale1 = sales_object.find_sale_name(sales_items)
         return{"message":"sale created succefully","sale":sale1}, 201
-   
-
-        
+           
     @jwt_required 
     def get(self):
         '''Get all order items in the cart'''
         sales = sales_object.all_orders()
-        return {"message":"created successfuly!","sales":sales}, 201
+        return {"message":"Cart Items","sales":sales}, 200
         
-
 
 class SingleOrder(Resource):
     @jwt_required
@@ -72,5 +69,6 @@ class SingleOrder(Resource):
                 quantity=sale['quantity']
             if not price:
                 price=sale['price']
+            # items = (id,sales_items,quantity,price)
             sales_object.modify_items(id,sales_items,quantity,price)
             return {'message':'Sale updated succesfully'}, 200

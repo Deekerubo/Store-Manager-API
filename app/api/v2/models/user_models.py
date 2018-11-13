@@ -11,31 +11,41 @@ url=os.getenv('DATABASE_URL')
 
 
 class User(Basemodel):
-        
+    def __init__(self):
+        super().__init__()
+
     def save_user(self,username,email,password,role=True):
         """ save a new user """
-        print(username, email, password, role)
+        # print(username, email, password, role)
         signup ="""INSERT INTO users(username, email, password,role)
                 VALUES(%s,%s,%s,%s)"""
+
         self.cursor.execute(signup, (username, email, password, role))
-        self.conn.commit()            
-                       
+        self.conn.commit()
+        # self.cursor.close() 
+        # self.conn.close()           
+               
 
     def fetch_single_user(self, email):
         '''checks if the username exists'''
         self.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         user = self.cursor.fetchone()
-
+        self.conn.commit()
+        # self.cursor.close()
+        # self.conn.close()
         return user
     
     
     def find_by_email(self,email):
         '''Checks if the email created exists'''
-        print (email)
         self.cursor.execute("""SELECT * FROM users WHERE email='{}'""".format(email))
-
+        
         rows = self.cursor.fetchone()
+        self.conn.commit()
+        # self.cursor.close()
+        # self.conn.close()
         return rows
+        
 
     # def logout_user(self):
     #     """Logout user by blacklisting token"""

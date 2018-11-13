@@ -38,13 +38,13 @@ class Products(Resource):
         
         product_object.add_entry(name,description,quantity,price,category)
         product1 = product_object.find_product_name(name)
-        return {"message":"sucess!","product":product1}
+        return {"message":"Product Created!","product":product1}, 201
         
     @jwt_required
     def get(self):
         '''Get all products'''
         products = product_object.all_products()
-        return {"message":"Suceess!","products":products}, 201
+        return {"message":"All Products Retrieved","products":products}, 200
 
 
 class ProductDetails(Resource):
@@ -52,7 +52,7 @@ class ProductDetails(Resource):
     def get(self,id):
         prod = product_object.single_product(id)
         if prod is None:
-            return{'message':'product not found'}   
+            return{'message':'Product not Found'}   
         return prod
     
     @jwt_required
