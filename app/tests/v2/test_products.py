@@ -58,7 +58,8 @@ class Test_Entry_Case(UserAuth):
 
     def test_get_sale_records(self):
         '''Get a single Entry'''
-        login = self.Auth(self.signup_data)
+        # login = self.Auth(self.signup_data)
+        login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
         self.app.post(ADD_ENTRY_URL,

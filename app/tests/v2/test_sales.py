@@ -43,7 +43,8 @@ class Test_Order_Case(UserAuth):
 
     def test_get_single_order(self):
         '''Test to get a single order'''
-        login = self.Auth(self.signup_data)
+        # login = self.Auth(self.signup_data)
+        login = super(Test_Order_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
         self.app.post(ADD_ORDER_URL,
@@ -59,7 +60,8 @@ class Test_Order_Case(UserAuth):
 
     def test_get_sale_records(self):
         '''Create sale Records'''
-        login = self.Auth(self.signup_data)
+        # login = self.Auth(self.signup_data)
+        login = super(Test_Order_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
         self.app.post(ADD_ORDER_URL,
@@ -74,7 +76,8 @@ class Test_Order_Case(UserAuth):
 
     def test_empty_items(self):
         '''Test for empty sale item '''
-        login = self.Auth(self.signup_data)
+        # login = self.Auth(self.signup_data)
+        login = super(Test_Order_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
         res = self.app.post(ADD_ORDER_URL,
