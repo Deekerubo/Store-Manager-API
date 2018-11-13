@@ -55,6 +55,7 @@ class Product(Basemodel):
         '''Delete a product'''
         self.cursor.execute("""SELECT * FROM  products WHERE id={};""".format(id))
         del1 = self.cursor.fetchone()
+        self.conn.commit()
         if not del1:
             return{'message':'product ID not found'}
         self.cursor.execute("""DELETE FROM  products WHERE id={};""".format(id))

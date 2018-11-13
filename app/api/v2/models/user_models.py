@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from psycopg2 import sql
+from flask_jwt_extended import get_raw_jwt
 from flask_restful import Resource, reqparse, Api
 from flask import Flask,request, make_response
 from passlib.hash import pbkdf2_sha256 as sha256
@@ -40,10 +41,27 @@ class User(Basemodel):
         return rows
         
 
-    # def logout_user(self):
-    #     """Logout user by blacklisting token"""
-    #     token = get_raw_jwt()['jti']
-    #     blacklist.add(token)
-    #     return dict(message="User log out success", status="ok"), 200
+    def revoke_token(self, token):
+        """Logout user by blacklisting token"""
+
+        # token = get_raw_jwt()['jti']
+        tok= """INSERT INTO tokens(token)
+                            VALUES(%s)"""
+        self.cursor.execute(tok,(token))
+        self.conn.commit()
+        # add(token)
+
+        # return dict(message="User log out success", status="ok"), 200
     
-    
+    def check_token(self, token):
+        """Logout user by blacklisting token"""
+        self.cursor.execute("""SELECT token 
+        FROM tokens
+        WHERE token = '{}'""",format(token))
+        rows = self.cursor.fetchone()
+        self.conn.commit()
+
+        if not rows:
+            return False
+
+        return True

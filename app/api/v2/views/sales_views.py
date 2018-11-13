@@ -18,7 +18,11 @@ class Sales(Resource):
         price = data['price']
               
         if not sales_items:
-            return make_response(jsonify({'message': 'Sales Items Cannot be Empty'}),400)
+            return make_response(jsonify({'message': 'Sales Items Cannot be Empty!'}),400)
+        if not quantity:
+            return make_response(jsonify({'message': 'Quantity Items Cannot be Empty!'}),400)
+        if not price:
+            return make_response(jsonify({'message': 'Price Items Cannot be Empty!'}),400)
         if not isinstance(price, int):
             return {'message':'price must be integer'}
         elif not isinstance(quantity, int):
