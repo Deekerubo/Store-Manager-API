@@ -27,7 +27,8 @@ class Sale(Basemodel):
             self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
         except Exception as e:
             print(e)
-        rows = self.cursor.fetchone()       
+        rows = self.cursor.fetchone()
+        self.conn.commit()       
         return rows
 
 
@@ -35,6 +36,7 @@ class Sale(Basemodel):
         """Return available orders"""
         self.cursor.execute("""SELECT * FROM sales """)
         sales = self.cursor.fetchall()
+        self.conn.commit()
         return sales
         
 
@@ -44,6 +46,7 @@ class Sale(Basemodel):
         self.cursor = self.conn.cursor()
         self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
         singlesale = self.cursor.fetchone()
+        self.conn.commit()
         return singlesale
 
 
@@ -61,6 +64,7 @@ class Sale(Basemodel):
         '''modify a produtct'''
         self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
         modify = self.cursor.fetchone()
+        self.conn.commit()
         if not modify:
             return{'message':'sales item not found'}
         return modify

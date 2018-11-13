@@ -6,13 +6,27 @@ from urllib.parse import urlparse
 
 dev_url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
 test_url = "dbname='store_manager_tests' host='localhost' port='5432' user='postgres' password='nyambumo'"
+
+
 config= os.getenv('APP_SETTINGS')
+# try:
+#     if config == 'development':
+#         conn = psycopg2.connect(dev_url)
+#     if config == 'testing':
+#         conn = psycopg2.connect(test_url)
+#     if config == 'production':
+#         conn = psycopg2.connect(production_url)
+# except BaseException:
+#     print("Database is not connected.")
+    
 def get_connection():
     if config == 'development':
         con=psycopg2.connect(dev_url)
     if config == 'testing':
         con=psycopg2.connect(test_url)
     return con
+
+
 # def get_connection():
 #         return psycopg2.connect(database=os.getenv('DATABASE'), 
 #                                 user="afhewnyxybwlub", 
@@ -27,12 +41,18 @@ def init_DB():
 
 
 def create_tables():
+    try:
         conn = get_connection()
         cur = conn.cursor()
         queries = tables()
         for query in queries:
                 cur.execute(query)
         conn.commit()
+        cur.close()
+    except(Exception, psycopg2.DatabaseError) as error:
+            return error
+    finally:
+        conn.close()
 
 def destroy_tables():
         users = """DROP TABLE IF EXISTS users CASCADE"""
@@ -41,13 +61,19 @@ def destroy_tables():
         category = """DROP TABLE IF EXISTS category CASCADE"""
         tokens = """DROP TABLE IF EXISTS tokens CASCADE"""
         
-
-        conn = get_connection()
-        cur = conn.cursor()
-        queries = [users, products, sales, category,tokens]
-        for query in queries:
-                cur.execute(query)
-        conn.commit()
+        try:
+            conn = get_connection()
+            cur = conn.cursor()
+            queries = [users, products, sales, category,tokens]
+            for query in queries:
+                    cur.execute(query)
+            conn.commit()
+            cur.close()
+        except(Exception, psycopg2.DatabaseError) as error:
+            return error
+        finally:
+            conn.close()
+        
 
 def tables():
         """Used for creating the tables"""
