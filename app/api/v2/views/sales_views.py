@@ -69,5 +69,6 @@ class SingleOrder(Resource):
                 quantity=sale['quantity']
             if not price:
                 price=sale['price']
+            # items = (id,sales_items,quantity,price)
             sales_object.modify_items(id,sales_items,quantity,price)
             return {'message':'Sale updated succesfully'}, 200

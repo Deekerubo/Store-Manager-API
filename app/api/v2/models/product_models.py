@@ -7,6 +7,8 @@ from .basemodel import Basemodel
 url=os.getenv('DATABASE_URL')
 
 class Product(Basemodel):
+    def __init__(self):
+        super().__init__()
     '''Add new entry'''
         
     def add_entry(self,name, description, quantity, price, category):

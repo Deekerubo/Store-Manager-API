@@ -7,6 +7,8 @@ from .basemodel import Basemodel
 url=os.getenv('DATABASE_URL')
 
 class Sale(Basemodel):
+    def __init__(self):
+        super().__init__()
 
 
     def add_sale(self, sales_items, quantity, price):
@@ -23,13 +25,19 @@ class Sale(Basemodel):
         '''Get a product by item name''' 
         self.conn=psycopg2.connect(url)
         self.cursor = self.conn.cursor()
-        try:
-            self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
-        except Exception as e:
-            print(e)
-        rows = self.cursor.fetchone()
-        self.conn.commit()       
-        return rows
+        self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
+        sales = self.cursor.fetchone()
+        self.conn.commit()
+        return sales
+        # self.conn=psycopg2.connect(url)
+        # self.cursor = self.conn.cursor()
+        # try:
+        #     self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
+        # except Exception as e:
+        #     print(e)
+        # rows = self.cursor.fetchone()
+        # self.conn.commit()       
+        # return rows
 
 
     def all_orders(self):

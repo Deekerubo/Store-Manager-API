@@ -29,7 +29,7 @@ class Test_Order_Case(UserAuth):
 
     def test_add_order(self):
         '''Test for sales '''
-        login = self.Auth(self.signup_data)
+        login = super(Test_Order_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
         res = self.app.post(ADD_ORDER_URL,
