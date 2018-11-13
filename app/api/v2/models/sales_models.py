@@ -3,8 +3,13 @@ import os
 import psycopg2.extras
 from psycopg2 import sql
 from .basemodel import Basemodel
+from app.api.database import init_DB
 
-url=os.getenv('DATABASE_URL')
+conn= init_DB()
+cursor = conn.cursor()
+
+
+# url=os.getenv('DATABASE_URL')
 
 class Sale(Basemodel):
     def __init__(self):
@@ -23,11 +28,11 @@ class Sale(Basemodel):
            
     def find_sale_name(self, sales_items):
         '''Get a product by item name''' 
-        self.conn=psycopg2.connect(url)
-        self.cursor = self.conn.cursor()
-        self.cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
-        sales = self.cursor.fetchone()
-        self.conn.commit()
+        # self.conn=psycopg2.connect(url)
+        # self.cursor = self.conn.cursor()
+        cursor.execute("""SELECT * FROM sales WHERE sales_items='{}'""".format(sales_items))
+        sales = cursor.fetchone()
+        conn.commit()
         return sales
         # self.conn=psycopg2.connect(url)
         # self.cursor = self.conn.cursor()
@@ -48,13 +53,13 @@ class Sale(Basemodel):
         return sales
         
 
-    def single_order(self, id):
+    def single_order(self,id):
         '''Return a single Order '''
-        self.conn=psycopg2.connect(url)
-        self.cursor = self.conn.cursor()
-        self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
-        singlesale = self.cursor.fetchone()
-        self.conn.commit()
+        # self.conn=psycopg2.connect(url)
+        # self.cursor = self.conn.cursor()
+        cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
+        singlesale = cursor.fetchone()
+        conn.commit()
         return singlesale
 
 
