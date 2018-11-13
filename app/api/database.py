@@ -23,7 +23,6 @@ def get_connection():
 
 def init_DB():
         con = get_connection()
-        # print(con)
         return con
 
 
