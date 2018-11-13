@@ -3,12 +3,8 @@ import os
 import json
 import unittest
 
-# from run import app
 from app import create_app
 from app.api.database import create_tables, destroy_tables
-# from app.api.database import  conn
-#con = init_DB()
-# cur = conn.cursor()
 
 
 USERLOGIN_URL = 'api/v2/login'
@@ -34,10 +30,8 @@ class UserAuth(unittest.TestCase):
         "password":"1kerubo"
                 }            
     def setUp(self):
-        # print(conn)
         # app.testing = True
         self.app = app.test_client()
-        # create_tables()
     def Auth(self, data):
         self.app.post(USERSIGNUP_URL,
                       data=json.dumps(data),
@@ -46,6 +40,3 @@ class UserAuth(unittest.TestCase):
                              data=json.dumps(data),
                              content_type='application/json')
 
-    # def tearDown(self):
-    #     cur.execute("DROP TABLE IF EXISTS users")
-    #     conn.commit()

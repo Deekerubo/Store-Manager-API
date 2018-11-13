@@ -16,14 +16,11 @@ class User(Basemodel):
 
     def save_user(self,username,email,password,role=True):
         """ save a new user """
-        # print(username, email, password, role)
         signup ="""INSERT INTO users(username, email, password,role)
                 VALUES(%s,%s,%s,%s)"""
 
         self.cursor.execute(signup, (username, email, password, role))
         self.conn.commit()
-        # self.cursor.close() 
-        # self.conn.close()           
                
 
     def fetch_single_user(self, email):
@@ -31,8 +28,6 @@ class User(Basemodel):
         self.cursor.execute("""SELECT * FROM users WHERE email='{}' """.format(email))
         user = self.cursor.fetchone()
         self.conn.commit()
-        # self.cursor.close()
-        # self.conn.close()
         return user
     
     
@@ -42,8 +37,6 @@ class User(Basemodel):
         
         rows = self.cursor.fetchone()
         self.conn.commit()
-        # self.cursor.close()
-        # self.conn.close()
         return rows
         
 

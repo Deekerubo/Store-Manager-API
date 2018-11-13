@@ -60,7 +60,6 @@ class Test_Order_Case(UserAuth):
 
     def test_get_sale_records(self):
         '''Create sale Records'''
-        # login = self.Auth(self.signup_data)
         login = super(Test_Order_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']

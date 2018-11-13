@@ -25,7 +25,6 @@ class Test_Entry_Case(UserAuth):
 
     def test_add_entry(self):
         '''Test to add a new product'''
-        # login = super().self.Auth(self.signup_data)
         login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
@@ -40,7 +39,6 @@ class Test_Entry_Case(UserAuth):
 
     def test_get_single_entry(self):
         '''Test to get a single entry'''
-        # login = self.Auth(self.signup_data)
         login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
@@ -58,7 +56,6 @@ class Test_Entry_Case(UserAuth):
 
     def test_get_sale_records(self):
         '''Get a single Entry'''
-        # login = self.Auth(self.signup_data)
         login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']

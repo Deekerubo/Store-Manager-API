@@ -18,7 +18,6 @@ class Product(Basemodel):
                   VALUES('%s','%s','%s','%s','%s')""" % (name, description, quantity, price, category)
         self.cursor.execute(product)
         self.conn.commit()
-        # self.conn.close()
 
         return dict(message=name + ", Posted!", status_code=201)
 
