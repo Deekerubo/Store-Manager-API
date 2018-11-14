@@ -156,14 +156,10 @@ class Test_Order_Case(UserAuth):
         self.assertEqual(res.status_code, 200)
 
     # def test_delete_order(self):
-    #     '''Add to cart'''
+    #     '''Test  delete order'''
     #     login = super(Test_Order_Case, self).Auth(self.signup_data)
     #     data = json.loads(login.data.decode())
     #     token = data['access_token']
-    #     self.app.post(ADD_ORDER_URL,
-    #                                 data = json.dumps(self.orders_item),
-    #                                 content_type = 'application/json')
-    #     '''Test  gets all the sale entries'''
     #     res = self.app.delete(GET_SINGLE_ORDER, 
     #                                headers=dict(Authorization="Bearer " + token),
     #                                data = json.dumps(self.delete_item),

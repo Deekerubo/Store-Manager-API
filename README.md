@@ -58,3 +58,5 @@ export ENV="development"
 export ENV='testing'
 
 python -m pytest --cov=app/api/v2
+
+pytest --cov-report term-missing --cov=app/api/v2

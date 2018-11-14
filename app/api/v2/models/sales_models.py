@@ -51,12 +51,13 @@ class Sale(Basemodel):
 
     def delete_order(self, id):
         '''Delete a product'''
-        self.cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
-        dele = self.cursor.fetchone()
+        cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+        dele = cursor.fetchone()
         if not dele:
             return{'message':'sale ID not found'}
-        self.cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
-        self.conn.commit()
+        cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+        conn.commit()
+        conn.close()
         return{'message':'sale deleted'}, 200
 
     def modify_items(self, id, sales_items, quantity, prices):

@@ -53,11 +53,13 @@ class ProductDetails(Resource):
         prod = product_object.single_product(id)
         if prod is None:
             return{'message':'Product not Found'}   
-        return prod
+        return {'message':'Products'}
     
     @jwt_required
     def delete(self, id):
         dele = product_object.delete_product(id)
+        if dele is None:
+            return{'message':'Product not found'}
         return {'message':'Product Deleted!'}
 
     @jwt_required
@@ -72,6 +74,7 @@ class ProductDetails(Resource):
         product= product_object.single_product(id)
         if not name:
             name=product['product_name']
+            # return make_response(jsonify({'message': 'Product is a name!'}),400)
         if not description:
             description=product['product_description']
         if not quantity:
