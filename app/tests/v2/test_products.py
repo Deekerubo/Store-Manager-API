@@ -201,7 +201,7 @@ class Test_Entry_Case(UserAuth):
         self.assertEqual(res.status_code, 400)
 
     def test_empty_category(self):
-        '''Test signup with an empty email address'''
+        '''Test add product with empty category'''
         login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']

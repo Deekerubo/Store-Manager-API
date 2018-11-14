@@ -59,7 +59,7 @@ class Sale(Basemodel):
         self.conn.commit()
         return{'message':'sale deleted'}, 200
 
-    def modify_items(self, id):
+    def modify_items(self, id, sales_items, quantity, prices):
         '''modify a produtct'''
         self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
         modify = self.cursor.fetchone()

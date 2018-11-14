@@ -24,17 +24,17 @@ class Sales(Resource):
         if not price:
             return make_response(jsonify({'message': 'Price Items Cannot be Empty!'}),400)
         if not isinstance(price, int):
-            return {'message':'price must be integer'}
+            return {'message':'Price must be integer!'}
         elif not isinstance(quantity, int):
-            return {'message':'quantity must be integer'}
+            return {'message':'Quantity must be integer!'}
         sale = Sale.find_sale_name(self,data['sales_items'])
         if sale:
-            return {"message":"Sale item already exists!"},400
+            return {"message":"Sale item does not exist!"},400
 
        
         sales_object.add_sale(sales_items,quantity,price)
         sale1 = sales_object.find_sale_name(sales_items)
-        return{"message":"sale created succefully","sale":sale1}, 201
+        return{"message":"Sale created succefully!","sale":sale1}, 201
            
     @jwt_required 
     def get(self):
@@ -55,8 +55,8 @@ class SingleOrder(Resource):
     def delete(self, id):
         dele = Sale.delete_order(self, id)
         if dele is None:
-            return{'messsage':'sale not found'}
-        return {'message':'sale succesfully deleted'},200
+            return{'messsage':'Order not found'}, 400
+        return {'message':'Order succesfully deleted!'},200
         
     @jwt_required
     def put (self, id):
@@ -73,6 +73,6 @@ class SingleOrder(Resource):
                 quantity=sale['quantity']
             if not price:
                 price=sale['price']
-            # items = (id,sales_items,quantity,price)
+
             sales_object.modify_items(id,sales_items,quantity,price)
-            return {'message':'Sale updated succesfully'}, 200
+            return {'message':'Order updated succesfully!'}, 200
