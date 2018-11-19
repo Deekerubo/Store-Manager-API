@@ -1,20 +1,20 @@
-[![Build Status](https://travis-ci.org/Deekerubo/Store-Manager-API.svg?branch=develop)](https://travis-ci.org/Deekerubo/Store-Manager-API
+[![Build Status](https://travis-ci.org/Deekerubo/Store-Manager-API.svg?branch=develop)](https://travis-ci.org/Deekerubo/Store-Manager-API)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b856b0a4882e0f62f42b/maintainability)](https://codeclimate.com/github/Deekerubo/Store-Manager-API/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Coverage Status](https://coveralls.io/repos/github/Deekerubo/Store-Manager-API/badge.svg?branch=ch-add-readMe-161500877)](https://coveralls.io/github/Deekerubo/Store-Manager-API?branch=ch-add-readMe-161500877)
 
 # Store-Manager-API
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
-The API is hosted [here](https://storemanger2-api.herokuapp.com/)
-The UI is hosted [here](https://deekerubo.github.io/Store-Manager/UI/)
+    The API is hosted [here](https://storemanger2-api.herokuapp.com/)
+    The UI is hosted [here](https://deekerubo.github.io/Store-Manager/UI/)
 
 # Prerequisites
--[Python3](https://www.python.org/) (A programming language).
--[Flask(http://flask.pocoo.org/) (A Python microframework).
--[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
--[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
--[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
--[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)
+    -[Python3](https://www.python.org/) (A programming language).
+    -[Flask](http://flask.pocoo.org/) (A Python microframework).
+    -[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
+    -[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
+    -[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
+    -[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)
 
 # Required Features
 ```
