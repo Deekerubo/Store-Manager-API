@@ -59,7 +59,7 @@ class SingleOrder(Resource):
     def get(self, id):
         ssale =Sale.single_order(self, id)
         if ssale is None:
-            return{'message':'sale not found'},400
+            return{'message':'sale not found'}
         return ssale
         
     @jwt_required

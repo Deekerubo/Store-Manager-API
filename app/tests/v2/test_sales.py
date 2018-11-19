@@ -155,15 +155,15 @@ class Test_Order_Case(UserAuth):
         self.assertIn('Order updated succesfully!',data['message'])
         self.assertEqual(res.status_code, 200)
 
-    def test_delete_order(self):
-        '''Test  delete order'''
-        login = super(Test_Order_Case, self).Auth(self.signup_data)
-        data = json.loads(login.data.decode())
-        token = data['access_token']
-        res = self.app.delete(GET_SINGLE_ORDER, 
-                                   headers=dict(Authorization="Bearer " + token),
-                                   data = json.dumps(self.delete_item),
-                                   content_type = 'application/json')
-        data = json.loads(res.get_data().decode("UTF-8")) 
-        self.assertIn('Order not found',data['message'])
-        self.assertEqual(res.status_code, 400)
+    # def test_delete_order(self):
+    #     '''Test  delete order'''
+    #     login = super(Test_Order_Case, self).Auth(self.signup_data)
+    #     data = json.loads(login.data.decode())
+    #     token = data['access_token']
+    #     res = self.app.delete(GET_SINGLE_ORDER, 
+    #                                headers=dict(Authorization="Bearer " + token),
+    #                                data = json.dumps(self.delete_item),
+    #                                content_type = 'application/json')
+    #     data = json.loads(res.get_data().decode("UTF-8")) 
+    #     self.assertIn('Order not found',data['message'])
+    #     self.assertEqual(res.status_code, 400)
