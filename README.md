@@ -5,16 +5,21 @@
 
 # Store-Manager-API
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
-    The API is hosted [here](https://storemanger2-api.herokuapp.com/)
-    The UI is hosted [here](https://deekerubo.github.io/Store-Manager/UI/)
+The API is hosted [here](https://storemanger2-api.herokuapp.com/)<br>
+The UI is hosted [here](https://deekerubo.github.io/Store-Manager/UI/)<br>
 
 # Prerequisites
-    -[Python3](https://www.python.org/) (A programming language).
-    -[Flask](http://flask.pocoo.org/) (A Python microframework).
-    -[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
-    -[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
-    -[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
-    -[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)
+-[Python3](https://www.python.org/) (A programming language).<br>
+-[Flask](ht-[Python3](https://www.python.org/) (A programming language).<br>
+-[Flask](http://flask.pocoo.org/) (A Python microframework).<br>
+-[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
+-[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
+-[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
+-[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)tp://flask.pocoo.org/) (A Python microframework).
+-[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
+-[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
+-[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
+-[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)
 
 # Required Features
 ```
