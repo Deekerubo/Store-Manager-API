@@ -8,8 +8,6 @@ from app.api.database import init_DB
 conn= init_DB()
 cursor = conn.cursor()
 
-
-
 class Sale(Basemodel):
     def __init__(self):
         super().__init__()
@@ -55,14 +53,17 @@ class Sale(Basemodel):
         dele = cursor.fetchone()
         if not dele:
             return{'message':'sale ID not found'}
-        cursor.execute("""SELECT * FROM  sales WHERE id='{}';""".format(id))
+        cursor.execute("""DELETE FROM  sales WHERE id='{}';""".format(id))
         conn.commit()
-        conn.close()
         return{'message':'sale deleted'}, 200
 
-    def modify_items(self, id, sales_items, quantity, prices):
-        '''modify a produtct'''
-        self.cursor.execute("""SELECT * FROM sales WHERE id='{}';""".format(id))
+    def modify_items(self, id, sales_items, quantity, price):
+        '''modify a sale'''
+        self.cursor.execute("""UPDATE sales
+                            SET sales_items='{}',
+                            quantity={},
+                            price={} 
+                            WHERE id='{}' RETURNING id;""".format(sales_items, quantity, price, id))
         modify = self.cursor.fetchone()
         self.conn.commit()
         if not modify:

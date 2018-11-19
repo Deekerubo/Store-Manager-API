@@ -64,9 +64,15 @@ class Product(Basemodel):
 
     def modify_items(self, id,product_name,description,quantity,price,category):
         '''modify a produtct'''
-        self.cursor.execute("""SELECT * FROM products WHERE id='{}';""".format(id))
+        self.cursor.execute("""UPDATE products 
+                            SET product_name = '{}', 
+                            product_description = '{}', 
+                            quantity ={}, 
+                            price = {}, 
+                            category = '{}'  
+                            WHERE id='{}' RETURNING id;""".format(product_name,description,quantity,price,category, id))
         modify = self.cursor.fetchone()
         self.conn.commit()
-        if not modify:
-            return{'message':'product item not found'}
-        return modify
+        # if not modify:
+        #     return{'message':'product item not found'},404
+        return {"message":"Product updated succesfully!"}, 200
