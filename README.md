@@ -9,8 +9,8 @@ Store Manager is a web application that helps store owners manage sales and prod
 `https://storemanger2-api.herokuapp.com/`
 
 # Prerequisites
--[Python3](https://www.python.org/) (A programming language)
--Flask (A Python microframework)
+-[Python3](https://www.python.org/) (A programming language).
+-Flask (A Python microframework).
 -PostgreSQL (Database)
 -Virtualenv (Stores all dependencies used in the project)
 -Pivotal Tracker (A project management tool)
