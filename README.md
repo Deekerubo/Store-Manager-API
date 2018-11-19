@@ -5,8 +5,8 @@
 
 # Store-Manager-API
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
-`https://deekerubo.github.io/Store-Manager/UI/`
-`https://storemanger2-api.herokuapp.com/`
+The API is hosted [here](https://storemanger2-api.herokuapp.com/)
+The UI is hosted [here](https://deekerubo.github.io/Store-Manager/UI/)
 
 # Prerequisites
 -[Python3](https://www.python.org/) (A programming language).
