@@ -10,14 +10,14 @@ test_url = "dbname='store_manager_tests' host='localhost' port='5432' user='post
 
 config= os.getenv('APP_SETTINGS')
     
-def get_connection():
-    if config == 'development':
-        con=psycopg2.connect(dev_url)
-    if config == 'testing':
-        con=psycopg2.connect(test_url)
-    # if config == 'production':
-    #     con=psycopg2.connect(prod_url)
-    return con
+# def get_connection():
+#     if config == 'development':
+#         con=psycopg2.connect(dev_url)
+#     if config == 'testing':
+#         con=psycopg2.connect(test_url)
+#     # if config == 'production':
+#     #     con=psycopg2.connect(prod_url)
+#     return con
 
 
 def get_connection():
