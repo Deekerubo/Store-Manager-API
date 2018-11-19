@@ -44,20 +44,15 @@ class User(Basemodel):
     def revoke_token(self, token):
         """Logout user by blacklisting token"""
 
-        # token = get_raw_jwt()['jti']
         tok= """INSERT INTO tokens(token)
-                            VALUES(%s)"""
-        self.cursor.execute(tok,(token))
+                VALUES(%s)"""
+        self.cursor.execute(tok,(token,))
         self.conn.commit()
-        # add(token)
 
-        # return dict(message="User log out success", status="ok"), 200
     
     def check_token(self, token):
         """Logout user by blacklisting token"""
-        self.cursor.execute("""SELECT token 
-        FROM tokens
-        WHERE token = '{}'""",format(token))
+        self.cursor.execute("""SELECT token FROM tokens WHERE token='{}'""".format(token))
         rows = self.cursor.fetchone()
         self.conn.commit()
 

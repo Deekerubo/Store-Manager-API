@@ -24,10 +24,8 @@ create table if not exists category (
 create table if not exists sales (
                 id         serial    not null primary key,
                 sales_items       integer      not null references products (id),	
-                sales_description      varchar   not null,
 		            price       integer      not null,
                 quantity integer not null,
-                category varchar not null
 );
 -- create table to handle revoked tokens
 create table if not exists tokens (

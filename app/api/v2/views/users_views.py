@@ -78,7 +78,7 @@ class UserLogin(Resource):
                 'access_token': access_token
                 },201
     
-class Logout(Resource):
+class UserLogout(Resource):
     '''Logout a user'''
     @jwt_required
     def delete(self):
@@ -86,6 +86,4 @@ class Logout(Resource):
        token=get_raw_jwt()['jti']
        user.revoke_token(token)
        return dict(message="User log out success", status="ok"), 200
-    #    logout_user = User().logout_user(request.headers['Authorization'].split(" ")[1])
-    #    return logout_user
 

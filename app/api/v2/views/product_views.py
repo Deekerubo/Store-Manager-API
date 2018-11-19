@@ -58,10 +58,13 @@ class ProductDetails(Resource):
     @jwt_required
     def delete(self, id):
         dele = product_object.delete_product(id)
+        if dele is None:
+            return{'message':'Product not found'}
         return {'message':'Product Deleted!'}
 
     @jwt_required
     def put (self, id):
+        
         data = request.get_json()
         name = data.get('product_name')
         description = data.get('product_description')
@@ -69,18 +72,5 @@ class ProductDetails(Resource):
         price = data.get('price')
         category = data.get('category')
 
-        product= product_object.single_product(id)
-        if not name:
-            name=product['product_name']
-        if not description:
-            description=product['product_description']
-        if not quantity:
-            quantity=product['quantity']
-        if not price:
-            price=product['price']
-        if not category:
-            category=product['category']
-        product_object.modify_items(id,name,description,quantity,price,category)
-        return {'message':'Product updated succesfully!'}, 200
-
+        return product_object.modify_items(id,name,description,quantity,price,category)
        

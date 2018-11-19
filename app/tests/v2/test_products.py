@@ -21,6 +21,12 @@ class Test_Entry_Case(UserAuth):
                                 "price": 23,
                                 "category":"category"
                             }
+        self.add_product_twice = { "product_name":"name",
+                                "product_description":"description",
+                                "quantity":4675,
+                                "price": 23,
+                                "category":"category"
+                            }
         self.empty_product_name={"product_name":"",
                                 "product_description":"description",
                                 "quantity":4675,
@@ -51,9 +57,6 @@ class Test_Entry_Case(UserAuth):
                                 "price": "23",
                                 "category":"category"
                                     }
-        
-        
-    
 
     def test_add_entry(self):
         '''Test to add a new product'''
@@ -194,14 +197,14 @@ class Test_Entry_Case(UserAuth):
         token = data['access_token']
         res = self.app.post(ADD_ENTRY_URL,
                                 headers=dict(Authorization="Bearer " + token),
-                               data=json.dumps(self.entry_item),
+                               data=json.dumps(self.add_product_twice),
                                content_type='application/json')
         data = json.loads(res.data.decode())
         self.assertEqual('Product item already exists!',data['message'])
         self.assertEqual(res.status_code, 400)
 
     def test_empty_category(self):
-        '''Test signup with an empty email address'''
+        '''Test add product with empty category'''
         login = super(Test_Entry_Case, self).Auth(self.signup_data)
         data = json.loads(login.data.decode())
         token = data['access_token']
@@ -212,6 +215,18 @@ class Test_Entry_Case(UserAuth):
         data = json.loads(res.data.decode())
         self.assertEqual('Product category  can not be empty!',data['message'])
         self.assertEqual(res.status_code, 400)
+
+    # def test_not_nameModify(self):
+    #     login = super(Test_Entry_Case, self).Auth(self.signup_data)
+    #     data = json.loads(login.data.decode())
+    #     token = data['access_token']
+    #     res = self.app.put(ADD_ENTRY_URL,
+    #                             headers=dict(Authorization="Bearer " + token),
+    #                            data=json.dumps(self.not_name),
+    #                            content_type='application/json')
+    #     data = json.loads(res.data.decode())
+    #     self.assertEqual('The method is not allowed for the requested URL.', data['message'])
+
 
 
 

@@ -28,7 +28,6 @@ def create_app(config_name):
         return user.check_token(jti)
     
     create_tables()
-    # destroy_tables()
 
     '''Register my blueprints'''
     app.register_blueprint(cart_BP)
