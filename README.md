@@ -10,11 +10,11 @@ Store Manager is a web application that helps store owners manage sales and prod
 
 # Prerequisites
 -[Python3](https://www.python.org/) (A programming language).
--Flask (A Python microframework).
--PostgreSQL (Database)
--Virtualenv (Stores all dependencies used in the project)
--Pivotal Tracker (A project management tool)
--Pytest (Framework for testing)
+-[Flask(http://flask.pocoo.org/) (A Python microframework).
+-[PostgreSQL](http://www.postgresqltutorial.com/) (Database)
+-[Virtualenv](https://virtualenv.pypa.io/en/latest/) (Stores all dependencies used in the project)
+-[Pivotal Tracker](https://www.pivotaltracker.com/dashboard) (A project management tool)
+-[Pytest](https://docs.pytest.org/en/latest/) (Framework for testing)
 
 # Required Features
 ```
