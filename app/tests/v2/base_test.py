@@ -33,7 +33,7 @@ class UserAuth(unittest.TestCase):
     def Auth(self, data):
         self.app.post(USERSIGNUP_URL,
                       data=json.dumps(data),
-                      contlogin_dataent_type='application/json')
+                      content_type='application/json')
         return self.app.post(USERLOGIN_URL,
                              data=json.dumps(data),
                              content_type='application/json')
