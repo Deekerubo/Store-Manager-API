@@ -36,17 +36,17 @@ class Test_User_Case(UserAuth):
         self.assertEqual(data["status"], "ok")
         self.assertEqual(res.status_code, 201) 
 
-    # def test_signup_twice(self):
-    #     '''Tests signup twice with the same email Address'''
-    #     self.app.post(USERSIGNUP_URL, 
-    #                            data=json.dumps(self.signup_data),
-    #                            content_type = 'application/json')
-    #     res = self.app.post(USERSIGNUP_URL,
-    #                            data=json.dumps(self.register_user1,
-    #                            content_type='application/json')
-    #     data = json.loads(res.data.decode())
-    #     self.assertEqual(data['message'], 'email already exist')
-    #     self.assertEqual(res.status_code, 400)
+    def test_signup_twice(self):
+        '''Tests signup twice with the same email Address'''
+        self.app.post(USERSIGNUP_URL, 
+                               data=json.dumps(self.signup_data),
+                               content_type = 'application/json')
+        res = self.app.post(USERSIGNUP_URL,
+                               data=json.dumps(self.register_user1),
+                               content_type='application/json')
+        data = json.loads(res.data.decode())
+        self.assertEqual(data['message'], 'email already exist')
+        self.assertEqual(res.status_code, 400)
 
 
     def test_sign_up_empty_email(self):
