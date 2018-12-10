@@ -4,9 +4,9 @@ import psycopg2
 from urllib.parse import urlparse
 
 
-dev_url = "dbname='store_manager' host='localhost' port='5432' user='postgres' password='nyambumo'"
-test_url = "dbname='store_manager_tests' host='localhost' port='5432' user='postgres' password='nyambumo'"
-# prod_url = "dbname='dd3ga69u9o4v1h' host = 'ec2-54-83-38-174.compute-1.amazonaws.com' port = '5432' user ='afhewnyxybwlub' password = '190cb34475295cddbf67b23f61f0b3fb60c7c4e7b24acc44cafdb7acd2982dd1'"
+dev_url = os.getenv('DATABASE_URL')
+test_url = os.getenv('DATABASE_URI')
+prod_url = os.getenv('DATABASE_PROD')
 
 config= os.getenv('APP_SETTINGS')
     
@@ -15,8 +15,8 @@ def get_connection():
         con=psycopg2.connect(dev_url)
     if config == 'testing':
         con=psycopg2.connect(test_url)
-    # if config == 'production':
-    #     con=psycopg2.connect(prod_url)
+    if config =='production':
+        con=psycopg2.connect(prod_url)
     return con
 
 

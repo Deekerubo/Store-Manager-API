@@ -5,10 +5,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_restful import Resource, Api
 from flask_jwt_extended import jwt_required
 from app.api.v2.models.sales_models import Sale
-# from app.api.database import init_DB
 
-# conn= init_DB()
-# cursor = conn.cursor()
 
 sales_object = Sale()
 class Sales(Resource):
@@ -36,14 +33,6 @@ class Sales(Resource):
             return {"message":"Sale item already exists!"},400
 
         sales_object.add_sale(sales_items,quantity,price)
-        # for item in sales_items:
-        #     cursor.execute("""SELECT * FROM products WHERE product_name='{}' """.fomart(item))
-        #     item1 = cursor.fetchone()
-        #     if item1:
-        #         cursor.execute("UPDATE products SET quantity='{}' WHERE product_name='{}'".format(item1[2]-quantity,item))
-        #         conn.commit()
-            
-
         sale1 = sales_object.find_sale_name(sales_items)
         return{"message":"Sale created succefully!","sale":sale1}, 201
            
